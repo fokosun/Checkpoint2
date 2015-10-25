@@ -23,10 +23,5 @@ cache:
   directories:
     - $HOME/.composer/cache
 
-
-before_install:
-  - composer self-update
-  - composer validate
-
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
