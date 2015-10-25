@@ -4,7 +4,7 @@ namespace Florence;
 
 use PDO;
 
-abstract class DatabaseManager {
+public abstract class DatabaseManager {
 
     public $database;
     public $host;
