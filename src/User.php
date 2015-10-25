@@ -2,6 +2,7 @@
 
 namespace Florence;
 
+
 class User extends DatabaseManager {
 
     public function connectToDatabase() {

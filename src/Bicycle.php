@@ -2,6 +2,7 @@
 
 namespace Florence;
 
+
 class Bicycle extends DatabaseManager {
 
     public function connectToDatabase() {

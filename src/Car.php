@@ -2,6 +2,7 @@
 
 namespace Florence;
 
+
 class Car extends DatabaseManager {
 
     public function connectToDatabase() {
