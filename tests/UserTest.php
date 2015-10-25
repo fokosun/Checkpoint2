@@ -6,8 +6,8 @@ class UserTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testOnePlusOne() {
-
-        $this->assertEquals(2, 1+1);
+        $ex = true;
+        $this->assertTrue($ex);
 
     }
 
