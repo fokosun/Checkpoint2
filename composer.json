@@ -1,0 +1,28 @@
+{
+    "name": "florence/potato",
+    "description": "Potato ORM is a simple agnostic ORM that can perform the basic crud database operations",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "andela-fokosun",
+            "email": "okosunuzflorence@gmail.com",
+            "role": "Developer"
+        }
+    ],
+
+    "require": {
+        "php" : ">=5.5.9",
+        "phpunit/phpunit": "4.8.*"
+    },
+
+    "autoload":
+     {
+        "psr-4":
+        {
+            "Florence\\" : "src/"
+        },
+
+        "classmap": ["src/"]
+    }
+
+}
