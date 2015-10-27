@@ -6,10 +6,10 @@ use PDO;
 
 public abstract class DatabaseManager {
 
-    public $database;
-    public $host;
-    public $userName;
-    public $password;
+    protected $database;
+    protected $host;
+    protected $userName;
+    protected $password;
 
     public function __construct($database, $host, $userName, $password) {
 
