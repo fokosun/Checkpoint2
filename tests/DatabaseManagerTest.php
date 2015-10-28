@@ -6,9 +6,8 @@ class DataManagerTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testOnePlusOne() {
-
-        $this->assertEquals(2, 1+1);
-
+        $a = true;
+        $this->assertTrue($a);
     }
 
 }
