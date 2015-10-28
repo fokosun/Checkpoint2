@@ -4,20 +4,20 @@ namespace Florence;
 
 use PDO;
 
-public abstract class DatabaseManager {
+abstract class DatabaseManager {
 
-    protected $database;
-    protected $host;
-    protected $userName;
-    protected $password;
+    public $dbname;
+    public $host;
+    public $username;
+    public $password;
 
-    public function __construct($database, $host, $userName, $password) {
+    public function __construct($dbname, $host, $userName, $password) {
 
         //these guys are going to read from the .env file
 
-        $this->databse = $databse;
+        $this->dbname = $dbname;
         $this->host = $host;
-        $this->userName = $userName;
+        $this->username = $username;
         $this->password = $password;
     }
 
