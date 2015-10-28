@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8a350dc27a8af31a8ee0eae7184a97d3",
-    "content-hash": "fe342d0e619833861f49670664e8c4bb",
+    "hash": "f129b621828867d8ac700af505b90b3f",
+    "content-hash": "cf48a6f931269b31a600c1c93136e976",
     "packages": [
         {
             "name": "badges/poser",
@@ -2405,6 +2405,52 @@
                 "templating"
             ],
             "time": "2015-10-13 07:07:02"
+        },
+        {
+            "name": "vlucas/phpdotenv",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vlucas/phpdotenv.git",
+                "reference": "91064290f5b53a09bdff1b939d7f69fb0e7531b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/91064290f5b53a09bdff1b939d7f69fb0e7531b5",
+                "reference": "91064290f5b53a09bdff1b939d7f69fb0e7531b5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Dotenv\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Vance Lucas",
+                    "email": "vance@vancelucas.com",
+                    "homepage": "http://www.vancelucas.com"
+                }
+            ],
+            "description": "Loads environment variables from `.env` to `getenv()`, `$_ENV` and `$_SERVER` automagically.",
+            "homepage": "http://github.com/vlucas/phpdotenv",
+            "keywords": [
+                "dotenv",
+                "env",
+                "environment"
+            ],
+            "time": "2015-05-30 16:15:01"
         }
     ],
     "packages-dev": [],
