@@ -14,7 +14,8 @@
     {
         "php" : ">=5.5.9",
         "phpunit/phpunit": "4.8.*",
-        "pugx/badge-poser": "^2.2"
+        "pugx/badge-poser": "^2.2",
+        "vlucas/phpdotenv": "^2.0"
     },
 
      "autoload":
