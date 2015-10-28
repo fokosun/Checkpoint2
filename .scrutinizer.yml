@@ -1,12 +1,10 @@
-checks:
-    php:
-        code_rating: true
-        duplication: true
+before_commands:
+    - "composer install --prefer-source"
 
-    python:
-        code_rating: true
-        duplicate_code: true
+build:
 
-    ruby:
-        code_rating: true
-        duplicate_code: true
+    tests:
+        override:
+            -
+                command: phpunit tests
+                on_node: 1
