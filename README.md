@@ -36,8 +36,8 @@ Please check out [CONTRIBUTING](CONTRIBUTING.md) file for detailed contribution 
 ## License
 See the bundled [LICENSE](LICENSE.md) file for more details.
 
-And that's it! I told you it was really simple! Potato ORM is an open-source project, please feel free to
-contribute to this project.
+Hey, i told you it was simple didn't I! Potato ORM is an open-source project, so please tell family and friends
+to contribute to or at-least use Potato ORM.
 
 
-*Happy Coding!*
+**Happy Coding!**
