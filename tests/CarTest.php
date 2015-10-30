@@ -12,7 +12,7 @@ class CarTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testConnect() {
-        dd($this->connect());
+       $this->assertEquals(2, 1+1);
     }
 
 }
