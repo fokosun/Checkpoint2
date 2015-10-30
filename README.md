@@ -10,10 +10,15 @@ Let's get started
 ## Classes
 
 Base (Abstract class)
+
 Connection (Trait)
+
 Car (Child class)
+
 Bicycle (Child class)
+
 User (Child class)
+
 
 ## Testing
 Phpunit 5.0 was used for testing the classes. Find the test file
