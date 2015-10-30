@@ -3,7 +3,9 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/andela-fokosun/Checkpoint-Two/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/andela-fokosun/Checkpoint-Two/?branch=master)
 
 # Checkpoint Two
-Potato ORM is a simple agnostic ORM that can perform the basic crud database operations
+Potato ORM is a really simple agnostic ORM that can perform the basic crud database operations.
+
+Let's get started
 
 ## Classes
 
@@ -19,3 +21,7 @@ Potato ORM is a simple agnostic ORM that can perform the basic crud database ope
 
 ## License
 
+And that's it! I told you it was really simple! Potato ORM is an open-source project, please feel free to contribute to this project.
+
+
+*Happy Coding!*
