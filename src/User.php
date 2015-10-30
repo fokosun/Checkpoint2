@@ -2,15 +2,28 @@
 
 namespace Florence;
 
+class User
+{
+    use Connection;
 
-class User extends Base{
+    /**
+     * @var $table
+     * @var $sql
+     * This Method creates the table in the database
+     */
+    public function create(){
 
-    public function hello()
-    {
-        echo "chinedu";
+        $table = strtolower(end(explode( '\\', get_called_class() )));
+
+        $sql = "CREATE TABLE $table
+        (
+            id serial NOT NULL,
+            brand text,
+            price text,
+            color text,
+            CONSTRAINT id_pkey PRIMARY KEY (id)
+            )";
+
+        $this->connect()->exec($sql);
     }
-
 }
-
-$new = new User;
-$new->hello();
