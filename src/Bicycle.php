@@ -3,7 +3,7 @@
 namespace Florence;
 
 
-class Bicycle extends DatabaseManager {
+class Bicycle extends Base {
 
 
 

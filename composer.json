@@ -26,13 +26,5 @@
         },
 
         "classmap": ["src/"]
-    },
-
-    "autoload-dev":
-    {
-        "psr-4":
-        {
-            "Florence\\Test\\" : "tests/"
-        }
     }
 }
