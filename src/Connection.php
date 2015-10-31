@@ -16,9 +16,10 @@ trait Connection {
         $connection = getenv('DB_CONNECTION');
 
         try {
-            $cxn = new PDO("$connection:dbname=$db;host=$host", $username, $password );
+            $cxn = new PDO("$connection:dbname=$db;host=$host", $username, $password, [PDO::ATTR_PERSISTENT => true] );
 
             return $cxn;
+
         }
 
         catch(PDOException $e) {

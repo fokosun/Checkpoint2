@@ -10,5 +10,3 @@ $ss = new Car();
 
 $ss->create();
 
-
-

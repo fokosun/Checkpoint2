@@ -16,6 +16,7 @@ class Car extends BaseClass
 
     public function insert(){
 
+
     }
 
     public function find(){
