@@ -3,10 +3,12 @@
 
 require "vendor/autoload.php";
 
+use Florence\User;
 
-use Florence\Car;
+$user = new User();
 
-$ss = new Car();
+echo $user->createTable();
 
-$ss->create();
+
+
 
