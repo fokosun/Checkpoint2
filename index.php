@@ -4,14 +4,16 @@
 require "vendor/autoload.php";
 
 use Florence\User;
-use Florence\Car;
-use Florence\Bicycle;
+
 
 $user = new User();
-$car = new Car();
-$bicycle = new Bicycle();
 
-echo $user->disconnect().' '.$car->disconnect().' '.$bicycle->disconnect();
+
+$user->first_name = "Florence";
+$user->last_name = "Okosun";
+
+$user->save();
+
 
 
 

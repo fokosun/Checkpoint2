@@ -6,8 +6,6 @@ interface DatabaseInterface
 {
     public function connect();
 
-    public function disconnect();
-
     function select($table, $field = NULL, $value = NULL);
 
     function insert($table, array $data);

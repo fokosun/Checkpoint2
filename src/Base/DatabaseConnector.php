@@ -42,21 +42,22 @@ class DatabaseConnector implements DatabaseInterface{
 
     }
 
-    public function disconnect(){
-
-        $table = strtolower(end(explode('\\', get_called_class())));
-        return $table;
-
-    }
 
     public function select($table, $field=NULL, $value=NULL){
     }
-    public function insert($table, array $data){}
+    public function insert($table, array $data){
+        var_dump($this->properties);
+    }
     public function update($table, array $data, $conditions){}
     public function delete($table, $conditions){}
 
+    public function disconnect(){
+        pg_close($this->connect());
+
+        return true;
+    }
     /**
-     * this guy should close connection wa instance of this class is destroyed
+     * this guy should close connection  instance of this class is destroyed
      */
     public function _destruct(){
         $this->disconnect();
