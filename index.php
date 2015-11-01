@@ -3,12 +3,11 @@
 
 require "vendor/autoload.php";
 
-use Florence\User;
+use Florence\DatabaseConnector;
 
-$user = new User();
+$cxn = new DatabaseConnector();
 
-echo $user->createTable();
-
+echo $cxn->connect();
 
 
 
