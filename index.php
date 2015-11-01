@@ -3,11 +3,16 @@
 
 require "vendor/autoload.php";
 
-use Florence\DatabaseConnector;
+use Florence\User;
+use Florence\Car;
+use Florence\Bicycle;
 
-$cxn = new DatabaseConnector();
+$user = new User();
+$car = new Car();
+$bicycle = new Bicycle();
 
-echo $cxn->connect();
+echo $user->disconnect().' '.$car->disconnect().' '.$bicycle->disconnect();
+
 
 
 

@@ -43,13 +43,13 @@ class DatabaseConnector implements DatabaseInterface{
     }
 
     public function disconnect(){
-        pg_close($this->connect());
 
-        return true;
+        $table = strtolower(end(explode('\\', get_called_class())));
+        return $table;
+
     }
 
     public function select($table, $field=NULL, $value=NULL){
-
     }
     public function insert($table, array $data){}
     public function update($table, array $data, $conditions){}

@@ -16,12 +16,3 @@ interface DatabaseInterface
 
     function delete($table, $conditions);
 }
-
-
-
-
-
-
-
-
-

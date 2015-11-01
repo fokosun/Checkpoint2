@@ -2,9 +2,7 @@
 
 namespace Florence;
 
-
-
-class User extends BaseClass
+class User extends DatabaseConnector
 {
 
 }

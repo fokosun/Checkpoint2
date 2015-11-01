@@ -2,9 +2,7 @@
 
 namespace Florence;
 
-
-
-class Bicycle extends BaseClass
+class Bicycle extends DatabaseConnector
 {
 
 }
