@@ -35,7 +35,7 @@ Require via composer like so:
 
 ## Usage
 
-So first things first as usual: Let's say you have a class user that extends the base class
+So first things first as usual: Let's say you have a class **user** that extends the base class
 
     
         class User extends Base
@@ -62,6 +62,8 @@ So first things first as usual: Let's say you have a class user that extends the
         $user = User::find(3);
 
 This returns the third record from the users table as JSON.
+
+
 
 
 Hey, i told you it was simple didn't I! Potato ORM is an open-source project, so please feel free to tell family 
