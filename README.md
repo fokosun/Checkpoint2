@@ -9,16 +9,14 @@ Let's get started
 
 ## Classes
 
-Base - Defines all the CRUD Implementations functions that allows reading data from a particular table.
+**Base** - Defines all the CRUD Implementations functions that allows reading data from a particular table.
 Every other class can inherit from the base class to access those functions so as to retrieve data.
 
-DatabaseConnector - Implements the DatabaseInterface
+**DatabaseConnector** - Implements the DatabaseInterface
 
-Car (Child class)
+**DatabaseInterface** -
 
-Bicycle (Child class)
-
-User (Child class)
+**User** - Implements the Base Class
 
 
 ## Testing
