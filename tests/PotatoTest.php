@@ -11,8 +11,8 @@ class PotatoTest extends \PHPUnit_Framework_TestCase
 
     public function testDestroy()
     {
-        $this->assertTrue(Car::destroy(17));
-        $this->assertTrue(User::destroy(1));
+        $this->assertTrue(Car::destroy(16));
+        $this->assertTrue(User::destroy(2));
     }
 
 }
