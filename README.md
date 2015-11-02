@@ -61,7 +61,7 @@ So first things first as usual: Let's say you have a class **User** that extends
 
         $user = User::find(3);
 
-This returns the third record from the users table as JSON.
+This spits out the third row to you as JSON, just like that! Nice.
 
 
 
