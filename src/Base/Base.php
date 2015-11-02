@@ -26,8 +26,9 @@ abstract class Base extends DatabaseConnector
 
     public function getTable()
     {
-        $table = strtolower(end(explode('\\', get_called_class())).'s');
-
+        $className = explode('\\', get_called_class());
+        $table = strtolower(end($className).'s');
+        
         return $table;
     }
 
