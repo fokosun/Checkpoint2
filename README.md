@@ -45,7 +45,7 @@ So first things first as usual: Let's say you have a class **User** that extends
 
         $user = new User();
         
-**add the respective column names and values as you wish:**
+**add the respective column names and populate values as you wish:**
 
         $user->first_name = "Florence";
         $user->last_name = "Okosun";
