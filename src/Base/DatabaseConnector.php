@@ -6,7 +6,8 @@ use Florence\EnvReader;
 use PDO;
 use PDOException;
 
-class DatabaseConnector implements DatabaseInterface{
+class DatabaseConnector implements DatabaseInterface
+{
     protected static $dsn = [];
     protected static $database;
     protected static $host;
@@ -14,8 +15,8 @@ class DatabaseConnector implements DatabaseInterface{
     protected static $password;
     protected static $driver;
 
-    public static function connect(){
-
+    public static function connect()
+    {
         $envReader = new EnvReader();
         $envReader->load();
 
@@ -28,14 +29,16 @@ class DatabaseConnector implements DatabaseInterface{
         self::$dsn = [self::$database, self::$host, self::$username, self::$password, self::$driver];
         list($database, $host, $username, $password, $driver) = self::$dsn;
 
-        try {
-            $cxn = new PDO("$driver:dbname=$database;host=$host", $username, $password,[PDO::ATTR_PERSISTENT => true] );
+        try
+        {
+            $cxn = new PDO("$driver:dbname=$database;host=$host", $username, $password,[PDO::ATTR_PERSISTENT => true]);
 
             return $cxn;
 
         }
 
-        catch(PDOException $e) {
+        catch(PDOException $e)
+        {
             return $e->getMessage();
         }
 
