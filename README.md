@@ -55,7 +55,14 @@ So first things first as usual: Let's say you have a class **User** that extends
 
         $user->save();
 
-**To find a particular record, say the third record:**
+**to fetch all the entries in the databsase:**
+
+        $user = User::getAll();
+
+This spits out all the records from the database as JSON
+
+
+**to find a particular record, say the third record:**
 
         $user = User::find(3);
 
