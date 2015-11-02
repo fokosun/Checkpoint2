@@ -4,7 +4,7 @@ namespace Florence;
 
 interface DatabaseInterface
 {
-    public function connect();
+    public static function connect();
 
     function select($table, $field = NULL, $value = NULL);
 
