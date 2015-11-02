@@ -2,7 +2,7 @@
 
 namespace Florence;
 
-class Car extends DatabaseConnector
+class Car extends Base
 {
 
 }
