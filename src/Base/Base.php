@@ -1,7 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Andela
+ * Created by Florence Okosun.
  * Date: 11/1/2015
  * Time: 11:31 AM
  */
@@ -64,17 +63,34 @@ abstract class Base extends DatabaseConnector
         $stmt->execute();
     }
 
+    public static function getAll()
+    {
+        $sql = "SELECT ". "*". "FROM ". self::getTable();
+        $row = self::connect()->query($sql)->fetchAll();
+
+        return json_encode($row);
+    }
+
     public static function find($row)
     {
-        $sql = "SELECT * FROM ". static::getTable(). " WHERE id =". $row;
+        $row = $row - 1;
+        $sql = "SELECT ". "*". "FROM ". self::getTable(). " ORDER BY id LIMIT 1 OFFSET ". $row;
+        $rows = self::connect()->query($sql)->fetchAll();
 
-        $rows = self::connect()->query($sql);
+        return json_encode($rows);
+    }
 
-        foreach($rows as $row){
-            $curr = $row;
-        }
+    public static function destroy($row)
+    {
+        $row = $row - 1;
+        $delete = "DELETE ". "*". "FROM " . self::getTable(). " ORDER BY id LIMIT 1 OFFSET ". $row;
+//        self::connect()->exec($delete);
+        return $delete;
+    }
 
-        return $row;
+    public static function endThis()
+    {
+
     }
 
 }
