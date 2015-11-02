@@ -6,18 +6,12 @@ use Florence\Car;
 use Florence\Base;
 use Florence\DatabaseConnector;
 
-class CarTest extends \PHPUnit_Framework_TestCase
+class PotatoTest extends \PHPUnit_Framework_TestCase
 {
-    protected $car;
 
-    protected function setUp()
+    public function testDestroy()
     {
-        $this->car = new Car();
-    }
-
-    public function testSave()
-    {
-        $this->assertTrue(Car::destroy(12));
+        $this->assertTrue(Car::destroy(14));
     }
 
 }
