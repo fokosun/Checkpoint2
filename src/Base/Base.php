@@ -11,7 +11,7 @@ namespace Florence;
 abstract class Base extends DatabaseConnector
 {
 
-    protected  $properties  = [];
+    protected  $properties = [];
 
     public  function __set($key, $val)
     {
@@ -27,7 +27,7 @@ abstract class Base extends DatabaseConnector
     public function getTable()
     {
         $className = explode('\\', get_called_class());
-        $table = strtolower(end($className).'s');
+        $table = strtolower(end($className) .'s');
 
         return $table;
     }
@@ -35,17 +35,17 @@ abstract class Base extends DatabaseConnector
     public function save()
     {
         $connection = self::connect();
-        $sql = "INSERT INTO ". $this->getTable()." (";
+        $sql = "INSERT INTO " . $this->getTable()." (";
         $columnNames = "";
         $columnValues = "";
         $count = 0;
 
-        foreach($this->properties as $key => $val)
+        foreach ($this->properties as $key => $val)
         {
             $columnNames .= $key;
-            $columnValues .= ':'. $key;
+            $columnValues .= ':' . $key;
             $count++;
-            if($count < count($this->properties))
+            if ($count < count($this->properties))
             {
                 $columnNames .= ', ';
                 $columnValues .= ', ';
@@ -53,11 +53,11 @@ abstract class Base extends DatabaseConnector
 
         }
 
-        $sql .= $columnNames.') VALUES ('.$columnValues.')';
+        $sql .= $columnNames.') VALUES (' .$columnValues.')';
 
         $stmt = $connection->prepare($sql);
 
-        foreach($this->properties as $key => $val){
+        foreach ($this->properties as $key => $val){
             $stmt->bindValue(':'.$key, $val);
         }
 
@@ -66,7 +66,7 @@ abstract class Base extends DatabaseConnector
 
     public static function getAll()
     {
-        $sql = "SELECT ". "*". "FROM ". self::getTable();
+        $sql = "SELECT " . "*" . "FROM ". self::getTable();
         $row = self::connect()->query($sql)->fetchAll();
 
         return json_encode($row);
@@ -75,7 +75,7 @@ abstract class Base extends DatabaseConnector
     public static function find($row)
     {
         $row = $row - 1;
-        $sql = "SELECT ". "*". "FROM ". self::getTable(). " ORDER BY id LIMIT 1 OFFSET ". $row;
+        $sql = "SELECT " . "*" . "FROM " . self::getTable() . " ORDER BY id LIMIT 1 OFFSET " . $row;
         $rows = self::connect()->query($sql)->fetchAll();
 
         return json_encode($rows);
@@ -89,6 +89,6 @@ abstract class Base extends DatabaseConnector
         $count = $delete->rowCount();
 
 //        return $count;
-        return ($count > 0)?true:false;
+        return ($count > 0) ? true : false;
     }
 }
