@@ -1,10 +1,16 @@
 <?php
 
+/**
+ * Created by Florence Okosun.
+ * Date: 11/1/2015
+ * Time: 11:31 AM
+ */
+
 namespace Florence;
 
-use Florence\EnvReader;
 use PDO;
 use PDOException;
+use Florence\EnvReader;
 
 class DatabaseConnector implements DatabaseInterface
 {
