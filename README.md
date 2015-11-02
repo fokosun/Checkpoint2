@@ -42,7 +42,20 @@ So first things first as usual: Let's say you have a class user that extends the
         {
      
         }
-     
+        
+###create a new instance of your class like so:
+
+        $user = new User();
+        
+###add the respective column names and values as you wish:
+
+        $user->first_name = "Shneal";
+        $user->last_name = "Obama";
+        $user->stack = "None";
+        
+### call the save method on the instance of your class:
+
+        $user->save();
 
 
 
