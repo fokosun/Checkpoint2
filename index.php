@@ -9,8 +9,9 @@ use Florence\User;
 $user = new User();
 
 
-$user->first_name = "Florence";
-$user->last_name = "Okosun";
+$user->first_name = "Ibraheem";
+$user->last_name = "Adeniyi";
+$user->stack = "PHPLaravel";
 
 $user->save();
 

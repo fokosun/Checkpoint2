@@ -31,9 +31,9 @@ abstract class Base extends DatabaseConnector
 
         return $table;
     }
+
     public function save()
     {
-
         $connection = $this->connect();
         $sql = "INSERT INTO ". $this->getTable()." (";
         $columnNames = "";
