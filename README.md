@@ -49,15 +49,19 @@ So first things first as usual: Let's say you have a class user that extends the
         
 ###add the respective column names and values as you wish:
 
-        $user->first_name = "Shneal";
-        $user->last_name = "Obama";
-        $user->stack = "None";
+        $user->first_name = "Florence";
+        $user->last_name = "Okosun";
+        $user->stack = "PHP/Laravel";
         
 ### call the save method on the instance of your class:
 
         $user->save();
 
+###To find a particular record, say the third record:
 
+        $user = User::find(3);
+
+This returns the third record from the users table as JSON.
 
 
 Hey, i told you it was simple didn't I! Potato ORM is an open-source project, so please feel free to tell family 
