@@ -10,12 +10,14 @@ class CarTest extends \PHPUnit_Framework_TestCase
 {
     protected $car;
 
-    protected function setUp() {
+    protected function setUp()
+    {
         $this->car = new Car();
     }
 
-    public function testSave() {
-       $this->assertEquals(2, 1+1);
+    public function testSave()
+    {
+        $this->assertTrue(Car::destroy(12));
     }
 
 }

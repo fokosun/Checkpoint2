@@ -57,7 +57,8 @@ abstract class Base extends DatabaseConnector
 
         $stmt = $connection->prepare($sql);
 
-        foreach ($this->properties as $key => $val){
+        foreach ($this->properties as $key => $val)
+        {
             $stmt->bindValue(':'.$key, $val);
         }
 
