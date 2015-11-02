@@ -5,7 +5,6 @@ namespace Florence;
 use Florence\EnvReader;
 use PDO;
 use PDOException;
-use \InvalidArgumentException;
 
 class DatabaseConnector implements DatabaseInterface{
     protected static $dsn = [];
@@ -42,24 +41,4 @@ class DatabaseConnector implements DatabaseInterface{
 
     }
 
-
-    public function select($table, $field=NULL, $value=NULL){
-    }
-    public function insert($table, array $data){
-
-    }
-    public function update($table, array $data, $conditions){}
-    public function delete($table, $conditions){}
-
-    public function disconnect(){
-        pg_close($this->connect());
-
-        return true;
-    }
-    /**
-     * this guy should close connection  instance of this class is destroyed
-     */
-    public function _destruct(){
-        $this->disconnect();
-    }
 }
