@@ -9,14 +9,14 @@ Let's get started
 
 ## Classes
 
-**Base** - Defines all the CRUD Implementations functions that allows reading data from a particular table.
+- **Base** - Defines all the CRUD Implementations functions that allows reading data from a particular table.
 Every other class can inherit from the base class to access the functions.
 
-**DatabaseConnector** - Implements the DatabaseInterface
+- **DatabaseConnector** - Implements the DatabaseInterface
 
-**DatabaseInterface** -
+- **DatabaseInterface** -
 
-**User** - Implements the Base Class
+- **User** - Implements the Base Class
 
 
 ## Testing
