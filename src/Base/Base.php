@@ -82,15 +82,12 @@ abstract class Base extends DatabaseConnector
 
     public static function destroy($row)
     {
-        $row = $row - 1;
-        $delete = "DELETE ". "*". "FROM " . self::getTable(). " ORDER BY id LIMIT 1 OFFSET ". $row;
-//        self::connect()->exec($delete);
-        return $delete;
+        $delete = self::connect()->prepare("DELETE FROM " . self::getTable()." WHERE id =". $row);
+        $delete->execute();
+
+        $count = $delete->rowCount();
+
+//        return $count;
+        return ($count > 0)?true:false;
     }
-
-    public static function endThis()
-    {
-
-    }
-
 }

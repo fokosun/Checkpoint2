@@ -3,11 +3,14 @@
 
 require "vendor/autoload.php";
 
-//use Florence\User;
+use Florence\User;
 use Florence\Car;
+$car = Car::destroy(8);
 
-$car = Car::find(3);
-print_r($car);
+var_dump($car);
+
+//$car = Car::find(3);
+//print_r($car);
 //$car = new Car();
 //$car->brand = "toyota";
 //$car->color = "blue";
