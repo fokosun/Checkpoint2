@@ -34,7 +34,7 @@ abstract class Base extends DatabaseConnector
 
     public function save()
     {
-        $connection = $this->connect();
+        $connection = self::connect();
         $sql = "INSERT INTO ". $this->getTable()." (";
         $columnNames = "";
         $columnValues = "";
@@ -63,4 +63,18 @@ abstract class Base extends DatabaseConnector
 
         $stmt->execute();
     }
+
+    public static function find($row)
+    {
+        $sql = "SELECT * FROM ". static::getTable(). " WHERE id =". $row;
+
+        $rows = self::connect()->query($sql);
+
+        foreach($rows as $row){
+            $curr = $row;
+        }
+
+        return $row;
+    }
+
 }
