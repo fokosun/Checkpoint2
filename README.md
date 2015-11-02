@@ -35,7 +35,7 @@ Require via composer like so:
 
 ## Usage
 
-So first things first as usual: Let's say you have a class **user** that extends the base class
+So first things first as usual: Let's say you have a class **User** that extends the base class
 
     
         class User extends Base
