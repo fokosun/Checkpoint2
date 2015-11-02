@@ -28,7 +28,7 @@ abstract class Base extends DatabaseConnector
     {
         $className = explode('\\', get_called_class());
         $table = strtolower(end($className).'s');
-        
+
         return $table;
     }
 
