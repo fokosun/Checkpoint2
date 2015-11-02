@@ -53,7 +53,7 @@ So first things first as usual: Let's say you have a class **User** that extends
         $user->last_name = "Okosun";
         $user->stack = "PHP/Laravel";
         
-### call the save method on the instance of your class:
+### call the save method on the user instance:
 
         $user->save();
 
