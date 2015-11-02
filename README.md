@@ -41,21 +41,21 @@ So first things first as usual: Let's say you have a class **User** that extends
      
         }
         
-###create a new instance of your class like so:
+**create a new instance of your class like so:**
 
         $user = new User();
         
-###add the respective column names and values as you wish:
+**add the respective column names and values as you wish:**
 
         $user->first_name = "Florence";
         $user->last_name = "Okosun";
         $user->stack = "PHP/Laravel";
         
-### call the save method on the user instance:
+**call the save method on the user instance:**
 
         $user->save();
 
-###To find a particular record, say the third record:
+**To find a particular record, say the third record:**
 
         $user = User::find(3);
 
