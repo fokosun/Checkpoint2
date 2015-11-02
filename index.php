@@ -1,13 +1,18 @@
 <?php
 
+/**
+ * Created by Florence Okosun.
+ * Date: 11/1/2015
+ * Time: 11:31 AM
+ */
 
 require "vendor/autoload.php";
 
 use Florence\User;
 use Florence\Car;
-$car = Car::destroy(8);
+$car = Car::destroy(10);
 
-var_dump($car);
+die($car);
 
 //$car = Car::find(3);
 //print_r($car);
