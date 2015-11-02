@@ -84,7 +84,8 @@ abstract class Base extends DatabaseConnector
 
     public static function destroy($row)
     {
-        $delete = self::connect()->prepare("DELETE " . "FROM " . self::getTable()." WHERE id =". $row);
+        $sql = "DELETE FROM " . self::getTable()." WHERE id = ". $row;
+        $delete = self::connect()->prepare($sql);
         $delete->execute();
         $count = $delete->rowCount();
 
