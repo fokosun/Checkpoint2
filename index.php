@@ -9,10 +9,11 @@
 require "vendor/autoload.php";
 
 //use Florence\User;
-//use Florence\Car;
-//$car = Car::destroy(10);
-//
-//die($car);
+use Florence\Car;
+
+$car = Car::destroy(19);
+
+var_dump($car);
 
 //$car = Car::find(3);
 //print_r($car);

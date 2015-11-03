@@ -7,7 +7,7 @@
 
 namespace Florence;
 
-
+use Florence\RecordNotFoundException;
 abstract class Base extends DatabaseConnector
 {
 
@@ -84,10 +84,23 @@ abstract class Base extends DatabaseConnector
 
     public static function destroy($row)
     {
-        $sql = "DELETE FROM " . self::getTable()." WHERE id = ". $row;
-        $delete = self::connect()->prepare($sql);
-        $delete->execute();
-        $count = $delete->rowCount();
+
+        try
+        {
+            $sql = "DELETE FROM " . self::getTable()." WHERE id = ". $row;
+            $delete = self::connect()->prepare($sql);
+            $delete->execute();
+            $count = $delete->rowCount();
+
+            if ($count < 1)
+            {
+                throw new RecordNotFoundException('Record Not Found');
+            }
+        }
+        catch(RecordNotFoundException $e)
+        {
+            return $e->getExceptionMessage();
+        }
 
         return ($count > 0) ? true : false;
     }
