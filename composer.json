@@ -12,9 +12,10 @@
 
     "require":
     {
-        "php" : ">=5.5.9",
         "pugx/badge-poser": "^2.2",
-        "vlucas/phpdotenv": "^2.0"
+        "vlucas/phpdotenv": "^2.0",
+        "mockery/mockery": "^0.9.4",
+        "phpunit/phpunit": "^5.0"
     },
 
      "autoload":
@@ -25,5 +26,12 @@
         },
 
         "classmap": ["src/"]
+    },
+
+    "autoload-dev": {
+        "psr-4": {
+            "Florence\\Test\\": "tests/"
+        },
+        "classmap": ["tests/"]
     }
 }

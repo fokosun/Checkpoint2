@@ -2,7 +2,7 @@
 
 namespace Florence;
 
-class Car extends Base
+class Car extends Model
 {
 
 }
