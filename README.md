@@ -12,7 +12,7 @@ Let's get started
 
 ## Classes
 
-- **Model** - Implements the Model Interface. The User, Car, Bicycle example classes will extend this class.
+- **Model** - Implements the Model Interface. User, Car, Bicycle example classes extend this class.
 
 - **Connection** - Loads and reads the .env file, returns the PDO connection object
 
