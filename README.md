@@ -12,14 +12,14 @@ Let's get started
 
 ## Classes
 
-- **Base** - Defines all the CRUD Implementations functions that allows reading data from a particular table.
-Every other class can inherit from the base class to access the functions.
+- **Model** - Implements the Model Interface. The User, Car, Bicycle example classes will extend this class.
 
-- **DatabaseConnector** - Implements the DatabaseInterface
+- **Connection** - Loads and reads the .env file, returns the PDO connection object
 
-- **DatabaseInterface** -
+- **WordNotFoundException** - It is what it is, an exception class!
 
-- **User** - Implements the Base Class
+- **User, Car, Bicycle** - Example classes
+
 
 
 ## Testing

@@ -50,10 +50,7 @@ class Connection extends PDO
 
     protected function loadDotenv()
     {
-        if (getenv('APP_ENV') !== 'production') {
-            $dotenv = new \Dotenv\Dotenv($_SERVER['DOCUMENT_ROOT']);
-            $dotenv->load();
-        }
+        $dotenv = new \Dotenv\Dotenv($_SERVER['DOCUMENT_ROOT']);
+        $dotenv->load();
     }
-
 }
