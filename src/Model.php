@@ -34,7 +34,7 @@ abstract class Model implements ModelInterface
         return $table;
     }
 
-    public function save()
+    public function save($connection = null)
     {
         $connection = new Connection();
         try{

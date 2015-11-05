@@ -26,7 +26,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
             ->andReturn($stmt);
         $stmt->shouldReceive('rowCount')->andReturn(1);
 
-        $this->assertEquals(1, $this->user->save());
+        $this->assertEquals(1, $this->user->save($connection));
     }
 
 }
