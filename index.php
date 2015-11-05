@@ -18,7 +18,7 @@ $user->last_name = "Otemuyiwa";
 $user->stack = "Ninja";
 
 $user->save();
-//print_r($user);
+print_r($user);
 
 //    //find
 //$user_ = User::find(8);
@@ -29,9 +29,9 @@ $user->save();
 
 
 
-$car = Car::destroy(22);
-
-var_dump($car);
+//$car = Car::destroy(22);
+//
+//var_dump($car);
 
 //$car = Car::find(3);
 //print_r($car);
