@@ -4,8 +4,8 @@ namespace Florence\Test;
 
 
 use Mockery as m;
-use Florence\Car;
 use Florence\User;
+use Florence\Connection;
 
 class ModelTest extends \PHPUnit_Framework_TestCase
 {
@@ -18,12 +18,17 @@ class ModelTest extends \PHPUnit_Framework_TestCase
     public function testSave()
     {
         $this->user = new User();
+        $this->user->first_name = "Frank";
+        $this->user->last_name = "Dunga";
+        $this->user->stack = "Comedy";
+
         $connection = m::mock('Connection');
         $stmt = m::mock('\PDOStatement');
 
-        $connection->shouldReceive('execute')
-            ->with('INSERT INTO users(first_name, last_name, stack) VALUES (Frank, Dunga, Comedy)')
+        $connection->shouldReceive('prepare')
+            ->with('INSERT INTO users(first_name, last_name, stack) VALUES (?,?,?)')
             ->andReturn($stmt);
+        $stmt->shouldReceive('execute')->with(['Frank', 'Dunga', 'Comedy']);
         $stmt->shouldReceive('rowCount')->andReturn(1);
 
         $this->assertEquals(1, $this->user->save($connection));
