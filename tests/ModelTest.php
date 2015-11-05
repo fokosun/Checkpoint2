@@ -2,10 +2,10 @@
 
 namespace Florence\Test;
 
-
 use Mockery as m;
 use Florence\User;
 use Florence\Connection;
+
 
 class ModelTest extends \PHPUnit_Framework_TestCase
 {
@@ -28,7 +28,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         $this->user = new User();
         $this->user->first_name = "Frank";
         $this->user->last_name = "Dunga";
-        $this->user->stack = "Comedy On Rails";
+        $this->user->stack = "Comedy";
 
         $this->connection->shouldReceive('prepare')
             ->with("INSERT INTO users (first_name, last_name, stack) VALUES (:first_name, :last_name, :stack)")
@@ -63,7 +63,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         $this->stmt->shouldReceive('execute');
         $this->stmt->shouldReceive('rowCount')->andReturn(1);
 
-        $this->assertTrue(User::destroy(24, $this->connection));
+        $this->assertTrue(User::destroy(29, $this->connection));
 
     }
 
