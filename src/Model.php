@@ -25,7 +25,7 @@ abstract class Model implements ModelInterface
     }
 
 
-    public function getTable()
+    public static function getTable()
     {
         $className = explode('\\', get_called_class());
         $table = strtolower(end($className) .'s');
