@@ -13,19 +13,19 @@ use Florence\User;
 //
     //insert and save
 $user = new User();
-$user->first_name = "Prosper";
-$user->last_name = "Otemuyiwa";
-$user->stack = "Ninja";
-
-$user->save();
-print_r($user);
+//$user->first_name = "Prosper";
+//$user->last_name = "Otemuyiwa";
+//$user->stack = "Ninja";
+//
+//$user->save();
+//print_r($user);
 
 //    //find
 //$user_ = User::find(8);
 //print_r($user_);
 
-//$user_2 = User::getAll();
-//print_r($user_2);
+$user = User::getAll();
+var_dump($user);
 
 
 

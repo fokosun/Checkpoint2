@@ -62,20 +62,18 @@ So first things first as usual: Let's say you have a class **User** that extends
 
         $user = User::getAll();
 
-This spits out all the records from the database as JSON
-
 
 **to find a particular record, say the third record:**
 
         $user = User::find(3);
 
-This spits out the third row to you as JSON, just like that! Nice.
+**how about deleting a record?**
+
+        $user = User::destroy(1);
 
 
-
-
-Hey, i told you it was simple didn't I! Potato ORM is an open-source project, so please feel free to tell family 
-and friends to use or contribute to Potato ORM.
+Nice and straight forward. Hey, i told you it was simple didn't I! Potato ORM is an open-source project, so please 
+feel free to tell family and friends to use or contribute to Potato ORM.
 
 
 ## Contributing
