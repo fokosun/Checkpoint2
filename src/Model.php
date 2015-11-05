@@ -33,7 +33,7 @@ abstract class Model implements ModelInterface
         return $table;
     }
 
-    public function save($connection = null)
+    public function save($properties = [], $connection = null)
     {
         if(is_null($connection))
         {
@@ -102,7 +102,6 @@ abstract class Model implements ModelInterface
         if (is_null($connection)) {
             $connection = new Connection();
         }
-
         try
         {
             $sql = "SELECT " . "*" . " FROM " . self::getTable() . " WHERE id = " . $row;
@@ -113,13 +112,7 @@ abstract class Model implements ModelInterface
         {
             return $e->getMessage();
         }
-
         return $record->fetchAll($connection::FETCH_ASSOC);
-    }
-
-    public function update($id)
-    {
-
     }
 
     public static function destroy($row, $connection= null)
