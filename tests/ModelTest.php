@@ -2,14 +2,22 @@
 
 namespace Florence\Test;
 
-
+use Florence\Connection;
 use Mockery as m;
 use Florence\User;
 
 class ModelTest extends \PHPUnit_Framework_TestCase
 {
     protected $user;
+    protected $connection;
+    protected $stmt;
 
+
+    public function setUp()
+    {
+        $this->connection = m::mock('Florence\Connection');
+        $this->stmt = m::mock('\PDOStatement');
+    }
     public function tearDown() {
         m::close();
     }
@@ -21,34 +29,41 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         $this->user->last_name = "Dunga";
         $this->user->stack = "Comedy";
 
-        $connection = m::mock('Florence\Connection');
-        $stmt = m::mock('\PDOStatement');
-
-        $connection->shouldReceive('prepare')
+        $this->connection->shouldReceive('prepare')
             ->with("INSERT INTO users (first_name, last_name, stack) VALUES (:first_name, :last_name, :stack)")
-            ->andReturn($stmt);
-        $stmt->shouldReceive('bindValue')->with(':first_name', 'Frank');
-        $stmt->shouldReceive('bindValue')->with(':last_name', 'Dunga');
-        $stmt->shouldReceive('bindValue')->with(':stack', 'Comedy');
+            ->andReturn($this->stmt);
+        $this->stmt->shouldReceive('bindValue')->with(':first_name', 'Frank');
+        $this->stmt->shouldReceive('bindValue')->with(':last_name', 'Dunga');
+        $this->stmt->shouldReceive('bindValue')->with(':stack', 'Comedy');
 
-        $stmt->shouldReceive('execute');
-        $stmt->shouldReceive('rowCount')->andReturn(1);
+        $this->stmt->shouldReceive('execute');
+        $this->stmt->shouldReceive('rowCount')->andReturn(1);
 
-        $this->assertEquals(1, $this->user->save($connection));
+        $this->assertEquals(1, $this->user->save($this->connection));
     }
 
-//    public function testGetAll()
-//    {
-//        $connection = m::mock('Florence\Connection\Connection');
-//        $stmt = m::mock('\PDOStatement');
-//
-//        $connection->shouldReceive('prepare')->with('SELECT * FROM users')->andReturn($stmt);
-//        $stmt->shouldReceive('execute');
-//        $stmt->shouldReceive('rowCount')->andReturn(1);
-//        $stmt->shouldReceive('fetchAll')->with($connection)
-//            ->andReturn(['id' => 1, 'first_name' => 'Frank']);
-//
-//        $this->assertCount(1, User::getAll($connection::FETCH_ASSOC));
-//    }
+    public function testGetAll()
+    {
+        $this->connection->shouldReceive('prepare')->with("SELECT * FROM users")->andReturn($this->stmt);
+        $this->stmt->shouldReceive('execute');
+
+        $this->stmt->shouldReceive('rowCount')->andReturn(2);
+        $this->stmt->shouldReceive('fetchAll')->with(Connection::FETCH_ASSOC)
+            ->andReturn([['id' => 1, 'first_name' => 'Frank', 'last_name' => 'Dunga', 'stack' => 'Comedy on Rails'],
+                ['id' =>2, 'first_name' => 'Florence', 'last_name' => 'Okosun', 'stack' => 'PHPLaravel']]);
+
+        $this->assertCount(2, User::getAll($this->connection));
+
+    }
+
+    public function testDestroy()
+    {
+        $this->connection->shouldReceive('prepare')->with("DELETE FROM users WHERE id = 12")->andReturn($this->stmt);
+        $this->stmt->shouldReceive('execute');
+        $this->stmt->shouldReceive('rowCount')->andReturn(1);
+
+        $this->assertTrue(User::destroy(24, $this->connection));
+
+    }
 
 }
