@@ -119,6 +119,11 @@ abstract class Model implements ModelInterface
         }
     }
 
+    public function update($id)
+    {
+
+    }
+
     public static function destroy($row, $connection= null)
     {
         if(is_null($connection))
