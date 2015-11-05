@@ -5,7 +5,6 @@ namespace Florence\Test;
 
 use Mockery as m;
 use Florence\User;
-use Florence\Connection;
 
 class ModelTest extends \PHPUnit_Framework_TestCase
 {
@@ -32,6 +31,20 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         $stmt->shouldReceive('rowCount')->andReturn(1);
 
         $this->assertEquals(1, $this->user->save($connection));
+    }
+
+    public function testGetAll()
+    {
+        $connection = m::mock('Connection');
+        $stmt = m::mock('\PDOStatement');
+
+        $connection->shouldReceive('prepare')->with('SELECT * FROM users')->andReturn($stmt);
+        $stmt->shouldReceive('execute');
+        $stmt->shouldReceive('rowCount')->andReturn(1);
+        $stmt->shouldReceive('fetchAll')->with($connection::FETCH_ASSOC)
+            ->andReturn(['id' => 1, 'first_name' => 'Frank']);
+
+        $this->assertCount(1, User::getAll($connection));
     }
 
 }
