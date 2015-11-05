@@ -81,7 +81,8 @@ abstract class Model implements ModelInterface
         try
         {
             $sql = "SELECT " . "*" . "FROM ". self::getTable();
-            $row = $connection->query($sql);
+            $row = $connection->prepare($sql);
+            $row->execute();
 
             return $row->fetchAll($connection::FETCH_ASSOC);
         }
