@@ -63,7 +63,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         $this->stmt->shouldReceive('execute');
         $this->stmt->shouldReceive('rowCount')->andReturn(1);
 
-        $this->assertTrue(User::destroy(29, $this->connection));
+        $this->assertTrue(User::destroy(12, $this->connection));
 
     }
 
