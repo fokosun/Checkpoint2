@@ -7,7 +7,6 @@
 
 namespace Florence;
 
-
 use PDOException;
 
 abstract class Model implements ModelInterface
@@ -66,7 +65,7 @@ abstract class Model implements ModelInterface
 
             $stmt->execute();
         }
-        catch(PDOException $e)
+        catch (PDOException $e)
         {
           return $e->getMessage();
         }
@@ -82,11 +81,11 @@ abstract class Model implements ModelInterface
         try
         {
             $sql = "SELECT " . "*" . "FROM ". self::getTable();
-            $row = $connection->query($sql)->fetchAll();
+            $row = $connection->query($sql);
 
-            return json_encode($row);
+            return $row->fetchAll($connection::FETCH_ASSOC);
         }
-        catch(PDOException $e)
+        catch (PDOException $e)
         {
             return $e->getMessage();
         }
@@ -104,7 +103,7 @@ abstract class Model implements ModelInterface
 
             return json_encode($rows);
         }
-        catch(PDOException $e)
+        catch (PDOException $e)
         {
             return $e->getMessage();
         }
@@ -126,7 +125,7 @@ abstract class Model implements ModelInterface
                 throw new RecordNotFoundException('Record Not Found');
             }
         }
-        catch(RecordNotFoundException $e)
+        catch (RecordNotFoundException $e)
         {
             return $e->getExceptionMessage();
         }
