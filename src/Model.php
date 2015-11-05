@@ -79,21 +79,26 @@ abstract class Model implements ModelInterface
         return $stmt->rowCount();
     }
 
-    public static function getAll()
+    public static function getAll($connection = null)
     {
-        $connection = new Connection();
+
+        if(is_null($connection))
+        {
+            $connection = new Connection();
+        }
+
         try
         {
-            $sql = "SELECT " . "*" . "FROM ". self::getTable();
+            $sql = "SELECT " . "*" . " FROM ". self::getTable();
             $row = $connection->prepare($sql);
             $row->execute();
-
-            return $row->fetchAll($connection::FETCH_ASSOC);
         }
         catch (PDOException $e)
         {
             return $e->getMessage();
         }
+
+        return  $row->fetchAll($connection::FETCH_ASSOC);
     }
 
     public static function find($row)
