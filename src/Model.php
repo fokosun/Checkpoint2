@@ -119,7 +119,7 @@ abstract class Model implements ModelInterface
         }
     }
 
-    public static function destroy($row)
+    public static function destroy($row, $connection= null)
     {
         $connection = new Connection();
 
