@@ -18,7 +18,7 @@ Let's get started
 
 - **WordNotFoundException** - It is what it is, an exception class!
 
-- **User, Car, Bicycle** - Example classes
+- **User, Car, Bicycle** - Example classes, they extend the Model class
 
 
 
