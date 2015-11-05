@@ -35,7 +35,11 @@ abstract class Model implements ModelInterface
 
     public function save($connection = null)
     {
-        $connection = new Connection();
+        if(is_null($connection))
+        {
+            $connection = new Connection();
+        }
+
         try{
             $sql = "INSERT" . " INTO " . $this->getTable()." (";
             $columnNames = "";
@@ -70,7 +74,7 @@ abstract class Model implements ModelInterface
           return $e->getMessage();
         }
 
-        $cxn = null;
+        $connection = null;
 
         return $stmt->rowCount();
     }
