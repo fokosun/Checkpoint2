@@ -38,7 +38,7 @@ class Connection extends PDO
 
         try
         {
-            return parent::__construct("$driver:dbname=$database;host=$host", $username, $password,
+            parent::__construct("$driver:dbname=$database;host=$host", $username, $password,
                 [PDO::ATTR_PERSISTENT => true]);
 
         }
@@ -52,7 +52,7 @@ class Connection extends PDO
     {
         if(getenv('APP_ENV') !== 'production')
         {
-            $dotenv = new Dotenv($_SERVER['DOCUMENT_ROOT']);
+            $dotenv = new Dotenv(__DIR__);//($_SERVER['DOCUMENT_ROOT']);
             $dotenv->load();
         }
 
