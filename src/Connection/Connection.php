@@ -10,6 +10,7 @@ namespace Florence;
 
 use PDO;
 use PDOException;
+use Dotenv\Dotenv;
 
 class Connection extends PDO
 {
@@ -41,7 +42,6 @@ class Connection extends PDO
                 [PDO::ATTR_PERSISTENT => true]);
 
         }
-
         catch(PDOException $e)
         {
             return $e->getMessage();
@@ -50,7 +50,7 @@ class Connection extends PDO
 
     protected function loadDotenv()
     {
-        $dotenv = new \Dotenv\Dotenv($_SERVER['DOCUMENT_ROOT']);
+        $dotenv = new Dotenv($_SERVER['DOCUMENT_ROOT']);
         $dotenv->load();
     }
 }

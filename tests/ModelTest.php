@@ -10,14 +10,13 @@ use Florence\User;
 class PotatoTest extends \PHPUnit_Framework_TestCase
 {
 
+    public function tearDown() {
+        m::close();
+    }
+
     public function testDestroy()
     {
         $this->assertTrue(true);
-    }
-
-
-    public function tearDown() {
-        m::close();
     }
 
 }
