@@ -53,6 +53,17 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(2, User::getAll($this->connection));
     }
 
+    public function testFind()
+    {
+        $this->connection->shouldReceive('prepare')->with("SELECT * FROM users WHERE id = 35")->andReturn($this->stmt);
+        $this->stmt->shouldReceive('execute');
+        $this->stmt->shouldReceive('rowCount')->andReturn(1);
+        $this->stmt->shouldReceive('fetchAll')->with(Connection::FETCH_ASSOC)
+            ->andReturn([['id' => 1, 'first_name' => 'Frank', 'last_name' => 'Dunga', 'stack' => 'Comedy on Rails']]);
+
+        $this->assertCount(1, User::find(35, $this->connection));
+    }
+
     public function testDestroy()
     {
         $this->connection->shouldReceive('prepare')->with("DELETE FROM users WHERE id = 12")->andReturn($this->stmt);
