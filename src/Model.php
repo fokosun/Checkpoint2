@@ -81,9 +81,7 @@ abstract class Model implements ModelInterface
 
     public static function getAll($connection = null)
     {
-
-        if(is_null($connection))
-        {
+        if (is_null($connection)) {
             $connection = new Connection();
         }
 
@@ -92,31 +90,31 @@ abstract class Model implements ModelInterface
             $sql = "SELECT " . "*" . " FROM ". self::getTable();
             $row = $connection->prepare($sql);
             $row->execute();
-        }
-        catch (PDOException $e)
-        {
+        } catch (PDOException $e) {
             return $e->getMessage();
         }
 
         return  $row->fetchAll($connection::FETCH_ASSOC);
     }
 
-    public static function find($row)
+    public static function find($row, $connection = null)
     {
-        $connection = new Connection();
-        $row = $row - 1;
+        if (is_null($connection)) {
+            $connection = new Connection();
+        }
 
         try
         {
-            $sql = "SELECT " . "*" . "FROM " . self::getTable() . " ORDER BY id LIMIT 1 OFFSET " . $row;
-            $rows = $connection->query($sql)->fetchAll();
-
-            return json_encode($rows);
+            $sql = "SELECT " . "*" . " FROM " . self::getTable() . " WHERE id = " . $row;
+            $record = $connection->prepare($sql);
+            $record->execute();
         }
         catch (PDOException $e)
         {
             return $e->getMessage();
         }
+
+        return $record->fetchAll($connection::FETCH_ASSOC);
     }
 
     public function update($id)
