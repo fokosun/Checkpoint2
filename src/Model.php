@@ -43,7 +43,7 @@ abstract class Model implements ModelInterface
     * @var $table
     * @return $table
     */
-    public static function getTable()
+    public static function getTableName()
     {
         $className = explode('\\', get_called_class());
         $table = strtolower(end($className) .'s');
@@ -64,7 +64,7 @@ abstract class Model implements ModelInterface
         }
 
         try{
-            $sql = "INSERT" . " INTO " . $this->getTable()." (";
+            $sql = "INSERT" . " INTO " . $this->getTableName()." (";
             $columnNames = "";
             $columnValues = "";
             $count = 0;
@@ -115,7 +115,7 @@ abstract class Model implements ModelInterface
 
         try
         {
-            $sql = "SELECT " . "*" . " FROM ". self::getTable();
+            $sql = "SELECT " . "*" . " FROM ". self::getTableName();
             $row = $connection->prepare($sql);
             $row->execute();
         } catch (PDOException $e) {
@@ -138,7 +138,7 @@ abstract class Model implements ModelInterface
         }
         try
         {
-            $sql = "SELECT " . "*" . " FROM " . self::getTable() . " WHERE id = " . $row;
+            $sql = "SELECT " . "*" . " FROM " . self::getTableName() . " WHERE id = " . $row;
             $record = $connection->prepare($sql);
             $record->execute();
         }
@@ -163,7 +163,7 @@ abstract class Model implements ModelInterface
 
         try
         {
-            $sql = "DELETE" . " FROM " . self::getTable()." WHERE id = ". $row;
+            $sql = "DELETE" . " FROM " . self::getTableName()." WHERE id = ". $row;
             $delete = $connection->prepare($sql);
             $delete->execute();
             $count = $delete->rowCount();
