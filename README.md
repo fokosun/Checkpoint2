@@ -39,7 +39,7 @@ Require via composer like so:
 So first things first as usual: Let's say you have a class **User** that extends the base class
 
     
-        class User extends Base
+        class User extends Model
         {
      
         }
