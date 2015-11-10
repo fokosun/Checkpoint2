@@ -6,33 +6,33 @@
  * Time: 11:31 AM
  */
 
-require "vendor/autoload.php";
-
-use Florence\Car;
-use Florence\User;
+//require "vendor/autoload.php";
 //
-    //insert and save
-$user = new User();
-//$user->first_name = "Prosper";
+//use Florence\Car;
+//use Florence\User;
+//
+//
+//$user = new User();
+//$user->first_name = "Godson";
 //$user->last_name = "Otemuyiwa";
 //$user->stack = "Ninja";
-//
-//$user->save();
+////
+//var_dump($user->save());
 //print_r($user);
-
+//
 //    //find
-//$user_ = User::find(8);
+//$user_ = User::find(35);
 //print_r($user_);
-
-$user = User::getAll();
-var_dump($user);
-
-
-
+//
+//$user = User::getAll();
+//var_dump($user);
+//
+//
+//
 //$car = Car::destroy(22);
 //
 //var_dump($car);
-
+//
 //$car = Car::find(3);
 //print_r($car);
 //$car = new Car();
@@ -43,11 +43,8 @@ var_dump($user);
 //$car->save();
 //
 //var_dump($car);
-
-
-
-
-
-
-
-
+//
+//
+//$user = User::find(14, value);
+//$user->name = “Beetle”;
+//$user->save();

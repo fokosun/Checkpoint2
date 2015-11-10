@@ -13,7 +13,11 @@
     "require":
     {
         "pugx/badge-poser": "^2.2",
-        "vlucas/phpdotenv": "^2.0",
+        "vlucas/phpdotenv": "^2.0"
+    },
+
+    "require-dev":
+    {
         "mockery/mockery": "^0.9.4",
         "phpunit/phpunit": "^5.0"
     },
