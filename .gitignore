@@ -1,9 +1,4 @@
 /vendor/
 .idea/
-abc
-bbb
-files.php
-pdo.php
-Base/Guy.php
 /.env
 /src/Connection/.env
