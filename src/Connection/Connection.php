@@ -38,6 +38,7 @@ class Connection extends PDO
         $this->driver = getenv('DB_CONNECTION');
 
         $this->dsn = [$this->database, $this->host, $this->username, $this->password, $this->driver];
+
         list($database, $host, $username, $password, $driver) = $this->dsn;
 
         try
@@ -59,7 +60,7 @@ class Connection extends PDO
     {
         if(getenv('APP_ENV') !== 'production')
         {
-            $dotenv = new Dotenv(__DIR__);//($_SERVER['DOCUMENT_ROOT']);
+            $dotenv = new Dotenv(__DIR__);
             $dotenv->load();
         }
 
