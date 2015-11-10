@@ -53,11 +53,10 @@ abstract class Model implements ModelInterface
 
     /**
     * inserts record into the database
-    * @param $properties
     * @param $connection initialised to null
     * @return rowCount
     */
-    public function save($properties = [], $connection = null)
+    public function save($connection = null)
     {
         if(is_null($connection))
         {
