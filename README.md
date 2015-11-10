@@ -81,14 +81,4 @@ Nice and straight forward. Hey, i told you it was simple didn't I!
 
 Potato ORM is an open-source project, so please feel free to tell family and friends to use or contribute to Potato ORM.
 
-
-## Contributing
-Please check out [CONTRIBUTING](CONTRIBUTING.md) file for detailed contribution guidelines.
-
-
-## License
-See the bundled [LICENSE](LICENSE.md) file for more details.
-
-
-
 **Happy Coding!**
