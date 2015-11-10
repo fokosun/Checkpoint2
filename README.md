@@ -12,13 +12,13 @@ Let's get started
 
 ## Classes
 
-- **Model** - Implements the Model Interface. User, Car, Bicycle example classes extend this class.
+- **Model** - Implements the Model Interface. User, Car example classes extend this class.
 
 - **Connection** - Loads and reads the .env file, returns the PDO connection object
 
 - **WordNotFoundException** - It is what it is, an exception class!
 
-- **User, Car, Bicycle** - Example classes, they extend the Model class
+- **User, Car** - Example classes, they extend the Model class
 
 
 
