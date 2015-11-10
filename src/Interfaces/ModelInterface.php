@@ -2,6 +2,10 @@
 
 namespace Florence;
 
+/**
+* static methods for the Model Class
+**/
+
 interface ModelInterface
 {
     public function save();

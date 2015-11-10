@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by Florence Okosun.
- * User: Andela
+ * Project: Checkpoint Two
  * Date: 11/3/2015
  * Time: 3:48 PM
  */
@@ -18,6 +18,9 @@ class RecordNotFoundException extends \Exception
         $this->message = $message;
     }
 
+    /**
+    * @return Exception Message
+    */
     public function getExceptionMessage()
     {
         return $this->message;

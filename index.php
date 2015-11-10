@@ -12,10 +12,10 @@
 //use Florence\User;
 //
 //
-//$user = new User();
-//$user->first_name = "Godson";
-//$user->last_name = "Otemuyiwa";
-//$user->stack = "Ninja";
+// $user = new User();
+// $user->first_name = "Godson";
+// $user->last_name = "Otemuyiwa";
+// $user->stack = "Ninja";
 ////
 //var_dump($user->save());
 //print_r($user);

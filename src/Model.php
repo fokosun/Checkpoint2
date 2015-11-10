@@ -1,8 +1,9 @@
 <?php
 /**
  * Created by Florence Okosun.
- * Date: 11/1/2015
- * Time: 11:31 AM
+ * Project: Checkpoint Two
+ * Date: 11/4/2015
+ * Time: 4:07 PM
  */
 
 namespace Florence;
@@ -11,20 +12,37 @@ use PDOException;
 
 abstract class Model implements ModelInterface
 {
-
+    /**
+    * @var properties array to hold column name and values
+    */
     protected  $properties = [];
 
+    /**
+    * @param string $key rep column name
+    * @param string $val rep column value
+    * sets into $propertie the $key => $value pairs
+    */
     public  function __set($key, $val)
     {
         $this->properties[$key] = $val;
     }
 
+    /**
+    * @param string $key reps the column name
+    * @return $key and $value
+    */
     public function __get($key)
     {
         return $this->properties[$key];
     }
 
-
+    /**
+    * Gets the name of the child class only
+    * without the namespace
+    * @var $className
+    * @var $table
+    * @return $table
+    */
     public static function getTable()
     {
         $className = explode('\\', get_called_class());
@@ -33,6 +51,12 @@ abstract class Model implements ModelInterface
         return $table;
     }
 
+    /**
+    * inserts record into the database
+    * @param $properties
+    * @param $connection initialised to null
+    * @return rowCount
+    */
     public function save($properties = [], $connection = null)
     {
         if(is_null($connection))
@@ -79,6 +103,11 @@ abstract class Model implements ModelInterface
         return $stmt->rowCount();
     }
 
+    /**
+    * fetches all records from the database
+    * @param $connection initialised to null
+    * @return associative array
+    */
     public static function getAll($connection = null)
     {
         if (is_null($connection)) {
@@ -97,6 +126,12 @@ abstract class Model implements ModelInterface
         return  $row->fetchAll($connection::FETCH_ASSOC);
     }
 
+    /**
+    * returns a particular record
+    * @param $row reps the record id
+    * @param $connection initialised to null
+    * @return associative array
+    */
     public static function find($row, $connection = null)
     {
         if (is_null($connection)) {
@@ -115,6 +150,11 @@ abstract class Model implements ModelInterface
         return $record->fetchAll($connection::FETCH_ASSOC);
     }
 
+    /**
+    * @param row reps record id
+    * @param $connection initialised to null
+    * @return boolean
+    */
     public static function destroy($row, $connection= null)
     {
         if(is_null($connection))

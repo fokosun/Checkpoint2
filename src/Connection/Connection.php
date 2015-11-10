@@ -25,6 +25,10 @@ class Connection extends PDO
 
     public function __construct()
     {
+        /**
+        * Load the environment variables
+        * @return connection object
+        */
         $this->loadDotenv();
 
         $this->database = getenv('DB_DATABASE');
@@ -48,6 +52,9 @@ class Connection extends PDO
         }
     }
 
+    /**
+    * use vlucas dotenv to access the .env file
+    **/
     protected function loadDotenv()
     {
         if(getenv('APP_ENV') !== 'production')
