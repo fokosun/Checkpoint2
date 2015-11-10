@@ -77,8 +77,9 @@ So first things first as usual: Let's say you have a class **User** that extends
         $user->name = “Beetle”;
         $user->save();        
         
-Nice and straight forward. Hey, i told you it was simple didn't I! Potato ORM is an open-source project, so please 
-feel free to tell family and friends to use or contribute to Potato ORM.
+Nice and straight forward. Hey, i told you it was simple didn't I! 
+
+Potato ORM is an open-source project, so please feel free to tell family and friends to use or contribute to Potato ORM.
 
 
 ## Contributing
