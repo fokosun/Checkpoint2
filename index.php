@@ -1,4 +1,4 @@
-// <?php
+<?php
 
 // /**
 //  * Created by Florence Okosun.
@@ -6,50 +6,24 @@
 //  * Time: 11:31 AM
 //  */
 
-// require "vendor/autoload.php";
+require "vendor/autoload.php";
 
-// // use Florence\Car;
 // use Florence\User;
-// // //
-// // //
-// // $user = new User();
-// // $user->first_name = "Terwase";
-// // $user->last_name = "Andela";
-// // $user->stack = "Ninja";
-// // $user->save();
 
-// // print_r($user);
-// //
-// //    //find
-// $user = User::find(86);
-// // print_r($user);
+// $user = new User();
+// $user->first_name = "Louis";
+// $user->last_name = "Vulton";
+// $user->stack = "Ninja";
+// $user->save();
+
+
+// $user = User::find(37);
+// print_r($user);
 // $user->first_name = "Pied Piper";
 // $user->save();
-// //
-// // $user = User::getAll();
-// // print_r($user);
-// //
-// //
-// //
 
-// // "UPDATE " . $this->getTableName() . "SET " . column_name= "beetle" . "WHERE id = " 1;
+// $user = User::getAll();
+// print_r($user);
 
-// //$car = Car::destroy(22);
-// //
-// //var_dump($car);
-// //
-// //$car = Car::find(3);
-// //print_r($car);
-// //$car = new Car();
-// //$car->brand = "buses";
-// //$car->color = "tilker";
-// //$car->price = "6000";
-// //
-// //$car->save();
-// //
-// //var_dump($car);
-// //
-// //
-// //$user = User::find(14, value);
-// //$user->name = “Beetle”;
-// //$user->save();
+// $user = User::destroy(22);
+// var_dump($user);

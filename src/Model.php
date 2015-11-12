@@ -123,27 +123,31 @@ abstract class Model implements ModelInterface
     * @param $connection initialised to null
     * @return associative array
     */
- public static function find($id, $connection = null)
+
+    public static function find($id, $connection = null)
     {
         if (is_null($connection)) {
             $connection = new Connection();
         }
+
         try
         {
             $sql = "SELECT " . "*" . " FROM " . self::getTableName() . " WHERE id = " . $id;
             $record = $connection->prepare($sql);
             $record->execute();
+            $count = $record->rowCount();
 
-            if ( $record->rowCount() ) {
-                $result = new static;
-                $result->id = $id;
-                $result->data = $record->fetchAll($connection::FETCH_ASSOC);
-                return $result;
+            if ($count < 1) {
+                throw new RecordNotFoundException('Record Not Found');
             }
-            throw new RecordNotFoundException('Record Not Found');
-        } catch (RecordNotFoundException $e) {
+        }
+        catch (RecordNotFoundException $e) {
             return $e->getMessage();
         }
+        $result = new static;
+        $result->id = $id;
+        $result->data = $record->fetchAll($connection::FETCH_ASSOC);
+        return $result;
     }
 
     /**
