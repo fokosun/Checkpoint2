@@ -42,6 +42,9 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         $this->stmt->shouldReceive('execute');
 
         $this->stmt->shouldReceive('rowCount')->andReturn(1);
+         $result = new User;
+
+        //var_dump($result);
 
         $this->assertEquals(1, $this->user->save($this->connection));
     }
@@ -62,18 +65,23 @@ class ModelTest extends \PHPUnit_Framework_TestCase
 
     public function testFind()
     {
-        $result = m::mock(new static);
-        $result->shouldReceive(id)->andReturn(35);
-
         $this->connection->shouldReceive('prepare')->with("SELECT * FROM users WHERE id = 35")->andReturn($this->stmt);
         $this->stmt->shouldReceive('execute');
         $this->stmt->shouldReceive('rowCount')->andReturn(1);
 
-        $this->stmt->shouldReceive('fetchAll')->with(Connection::FETCH_ASSOC)->andReturn([['id' => 1, 'first_name' => 'Frank', 'last_name' => 'Dunga', 'stack' => 'Comedy on Rails']]);
+        $this->stmt->shouldReceive('fetchAll')->with(Connection::FETCH_ASSOC)->andReturn([['id' => 35, 'first_name' => 'Frank', 'last_name' => 'Dunga', 'stack' => 'Comedy on Rails']]);
 
-        $return->shouldReceive(data)->andReturn($this->stmt);
+        $this->assertInstanceOf('Florence\User', User::find(35, $this->connection));
+    }
 
-        $this->assertCount(1, User::find(35, $this->connection));
+    public function testFindException()
+    {
+        $this->connection->shouldReceive('prepare')->with("SELECT * FROM users WHERE id = 35")->andReturn($this->stmt);
+        $this->stmt->shouldReceive('execute');
+        $this->stmt->shouldReceive('rowCount')->andReturn(0);
+        $this->setExpectedException('Florence\RecordNotFoundException');
+
+        User::find(35, $this->connection);
     }
 
     public function testDestroy()
