@@ -77,7 +77,6 @@ So first things first as usual: Let's say you have a class **User** that extends
         $user->name = “Beetle”;
         $user->save();        
         
-Nice and straight forward. Hey, i told you it was simple didn't I! 
 
 `NB: You can only update one field at a time in this version.`
 
@@ -97,6 +96,8 @@ If you attempt to assign a property that doesn't exist in your databse, expect a
                 } catch(\Florence\RecordNotFoundException $e) {
                     echo $e->getExceptionMessage();
                 }
+
+Nice and straight forward. Hey, i told you it was simple didn't I! 
 
 Potato ORM is an open-source project, so please feel free to tell family and friends to use or contribute to Potato ORM.
 
