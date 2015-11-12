@@ -63,43 +63,35 @@ abstract class Model implements ModelInterface
             $connection = new Connection();
         }
 
-        try{
-            $sql = "INSERT" . " INTO " . $this->getTableName()." (";
-            $columnNames = "";
-            $columnValues = "";
-            $count = 0;
+        $columnNames = "";
+        $columnValues = "";
+        $count = 0;
+        $create = "INSERT" . " INTO " . $this->getTableName()." (";
 
-            foreach ($this->properties as $key => $val)
+        foreach ($this->properties as $key => $val) {
+            $columnNames .= $key;
+            $columnValues .= ':' . $key;
+            $count++;
+
+            if ($count < count($this->properties))
             {
-                $columnNames .= $key;
-                $columnValues .= ':' . $key;
-                $count++;
-                if ($count < count($this->properties))
-                {
-                    $columnNames .= ', ';
-                    $columnValues .= ', ';
+                $columnNames .= ', ';
+                $columnValues .= ', ';
+            }
+        }
+
+        if ( ! isset ($this->id)  && is_array($this->data) ) {
+            $update = "UPDATE " . $this->getTableName() . " SET " . $this->properties[$val] = $key . "=". "'" .$this->properties[$key] . "'" . " WHERE id=". $this->id;
+            $stmt = $connection->prepare($update);
+            $stmt->execute();
+        } else {
+            $create .= $columnNames.') VALUES (' .$columnValues.')';
+            $stmt = $connection->prepare($create);
+                foreach ($this->properties as $key => $val) {
+                    $stmt->bindValue(':'.$key, $val);
                 }
-            }
-
-            $sql .= $columnNames.') VALUES (' .$columnValues.')';
-
-            $stmt = $connection->prepare($sql);
-
-            foreach ($this->properties as $key => $val)
-            {
-                $stmt->bindValue(':'.$key, $val);
-            }
-
             $stmt->execute();
         }
-        catch (PDOException $e)
-        {
-          return $e->getMessage();
-        }
-
-        $connection = null;
-
-        return $stmt->rowCount();
     }
 
     /**
@@ -122,7 +114,7 @@ abstract class Model implements ModelInterface
             return $e->getMessage();
         }
 
-        return  $row->fetchAll($connection::FETCH_ASSOC);
+        return $row->fetchAll($connection::FETCH_ASSOC);
     }
 
     /**
@@ -131,22 +123,27 @@ abstract class Model implements ModelInterface
     * @param $connection initialised to null
     * @return associative array
     */
-    public static function find($row, $connection = null)
+ public static function find($id, $connection = null)
     {
         if (is_null($connection)) {
             $connection = new Connection();
         }
         try
         {
-            $sql = "SELECT " . "*" . " FROM " . self::getTableName() . " WHERE id = " . $row;
+            $sql = "SELECT " . "*" . " FROM " . self::getTableName() . " WHERE id = " . $id;
             $record = $connection->prepare($sql);
             $record->execute();
-        }
-        catch (PDOException $e)
-        {
+
+            if ( $record->rowCount() ) {
+                $result = new static;
+                $result->id = $id;
+                $result->data = $record->fetchAll($connection::FETCH_ASSOC);
+                return $result;
+            }
+            throw new RecordNotFoundException('Record Not Found');
+        } catch (RecordNotFoundException $e) {
             return $e->getMessage();
         }
-        return $record->fetchAll($connection::FETCH_ASSOC);
     }
 
     /**
@@ -154,30 +151,25 @@ abstract class Model implements ModelInterface
     * @param $connection initialised to null
     * @return boolean
     */
-    public static function destroy($row, $connection= null)
+    public static function destroy($id, $connection= null)
     {
-        if(is_null($connection))
-        {
+        if(is_null($connection)) {
             $connection = new Connection();
         }
 
-        try
-        {
-            $sql = "DELETE" . " FROM " . self::getTableName()." WHERE id = ". $row;
+        try {
+            $sql = "DELETE" . " FROM " . self::getTableName()." WHERE id = ". $id;
             $delete = $connection->prepare($sql);
             $delete->execute();
             $count = $delete->rowCount();
 
-            if ($count < 1)
-            {
+            if ($count < 1) {
                 throw new RecordNotFoundException('Record Not Found');
             }
         }
-        catch (RecordNotFoundException $e)
-        {
+        catch (RecordNotFoundException $e) {
             return $e->getExceptionMessage();
         }
-
         return ($count > 0) ? true : false;
     }
 }

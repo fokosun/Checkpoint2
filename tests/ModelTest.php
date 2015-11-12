@@ -26,16 +26,21 @@ class ModelTest extends \PHPUnit_Framework_TestCase
     public function testSave()
     {
         $this->user = new User();
+
         $this->user->first_name = "Frank";
         $this->user->last_name = "Dunga";
         $this->user->stack = "Comedy";
+
         $this->connection->shouldReceive('prepare')
             ->with("INSERT INTO users (first_name, last_name, stack) VALUES (:first_name, :last_name, :stack)")
             ->andReturn($this->stmt);
+
         $this->stmt->shouldReceive('bindValue')->with(':first_name', 'Frank');
         $this->stmt->shouldReceive('bindValue')->with(':last_name', 'Dunga');
         $this->stmt->shouldReceive('bindValue')->with(':stack', 'Comedy');
+
         $this->stmt->shouldReceive('execute');
+
         $this->stmt->shouldReceive('rowCount')->andReturn(1);
 
         $this->assertEquals(1, $this->user->save($this->connection));
@@ -45,7 +50,9 @@ class ModelTest extends \PHPUnit_Framework_TestCase
     {
         $this->connection->shouldReceive('prepare')->with("SELECT * FROM users")->andReturn($this->stmt);
         $this->stmt->shouldReceive('execute');
+
         $this->stmt->shouldReceive('rowCount')->andReturn(2);
+
         $this->stmt->shouldReceive('fetchAll')->with(Connection::FETCH_ASSOC)
             ->andReturn([['id' => 1, 'first_name' => 'Frank', 'last_name' => 'Dunga', 'stack' => 'Comedy on Rails'],
                 ['id' =>2, 'first_name' => 'Florence', 'last_name' => 'Okosun', 'stack' => 'PHPLaravel']]);
