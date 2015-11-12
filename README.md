@@ -91,11 +91,14 @@ So you cannot do:
 
 If you attempt to assign a property that doesn't exist in your databse, expect an exception. Make sure to handle the exception e.g.
             
-            try {
-                    $user = User::find(20);
-                } catch(\Florence\RecordNotFoundException $e) {
-                    echo $e->getExceptionMessage();
-                }
+            try 
+            {
+                $user = User::find(20);
+            } 
+            catch(\Florence\RecordNotFoundException $e) 
+            {
+                echo $e->getExceptionMessage();
+            }
 
 Nice and straight forward. Hey, i told you it was simple didn't I! 
 
