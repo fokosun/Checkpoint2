@@ -52,6 +52,25 @@ abstract class Model implements ModelInterface
     }
 
     /**
+    * Offsets by 1 to get the array returned by $record from the find method
+    * puts the values in an array
+    */
+    public static function petrifier($record)
+    {
+        // return all the values returned from $record offset by 1
+        $value = array_values($record)[1];
+
+        if (is_null($value)) {
+            $value = 'NULL';
+        } else {
+            $value = "'" . $value . "'";
+        }
+
+        return array_keys($record)[1] . '=' . $value;
+    }
+
+
+    /**
     * inserts record into the database
     * @param $connection initialised to null
     * @return rowCount
@@ -63,7 +82,14 @@ abstract class Model implements ModelInterface
             $connection = new Connection();
         }
 
-        $columnNames = "";
+        if (isset($this->properties['data']) && is_array($this->properties['data']) ) {
+            $update = "UPDATE " . $this->getTableName() . " SET " . self::petrifier($this->properties) . " WHERE id=". $this->properties['data'][0]['id'];
+
+            $stmt = $connection->prepare($update);
+            $stmt->execute();
+            return $stmt->rowCount();
+        } else {
+             $columnNames = "";
         $columnValues = "";
         $count = 0;
         $create = "INSERT" . " INTO " . $this->getTableName()." (";
@@ -80,17 +106,14 @@ abstract class Model implements ModelInterface
             }
         }
 
-        if ( ! isset ($this->id)  && is_array($this->data) ) {
-            $update = "UPDATE " . $this->getTableName() . " SET " . $this->properties[$val] = $key . "=". "'" .$this->properties[$key] . "'" . " WHERE id=". $this->id;
-            $stmt = $connection->prepare($update);
-            $stmt->execute();
-        } else {
             $create .= $columnNames.') VALUES (' .$columnValues.')';
+            //var_dump($create, $this->data);
             $stmt = $connection->prepare($create);
                 foreach ($this->properties as $key => $val) {
                     $stmt->bindValue(':'.$key, $val);
                 }
             $stmt->execute();
+            return $stmt->rowCount();
         }
     }
 
@@ -136,16 +159,16 @@ abstract class Model implements ModelInterface
             $record = $connection->prepare($sql);
             $record->execute();
             $count = $record->rowCount();
-
-            if ($count < 1) {
-                throw new RecordNotFoundException('Record Not Found');
-            }
         }
         catch (RecordNotFoundException $e) {
             return $e->getMessage();
         }
+
+        if ($count < 1) {
+            throw new RecordNotFoundException('Record Not Found');
+        }
+
         $result = new static;
-        $result->id = $id;
         $result->data = $record->fetchAll($connection::FETCH_ASSOC);
         return $result;
     }
