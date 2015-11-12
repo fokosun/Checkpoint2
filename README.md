@@ -80,6 +80,7 @@ So first things first as usual: Let's say you have a class **User** that extends
 Nice and straight forward. Hey, i told you it was simple didn't I! 
 
 `NB: You can only update one field at a time in this version.`
+
 So you cannot do:
         
         &user = User::find(3);
@@ -87,7 +88,9 @@ So you cannot do:
         $user->Last_name = "Mark";
         $user->save();
 
-`NB: Make sure you are updating fields already present in your database. If you attempt to assign a property that doesn't exist in your databse, expect an exception. Make sure to handle the exception e.g.
+`NB: Make sure you are updating fields already present in your database.` 
+
+If you attempt to assign a property that doesn't exist in your databse, expect an exception. Make sure to handle the exception e.g.
             
             try {
                     $user = User::find(20);
