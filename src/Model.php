@@ -51,71 +51,43 @@ abstract class Model implements ModelInterface
         return $table;
     }
 
-    /**
-    * Offsets by 1 to get the array returned by $record from the find method
-    * puts the values in an array
-    */
-    public static function petrifier($record)
-    {
-        // return all the values returned from $record offset by 1
-        $value = array_values($record)[1];
-
-        if (is_null($value)) {
-            $value = 'NULL';
-        } else {
-            $value = "'" . $value . "'";
-        }
-
-        return array_keys($record)[1] . '=' . $value;
-    }
-
-
-    /**
-    * inserts record into the database
+        /**
+    * returns a particular record
+    * @param $row reps the record id
     * @param $connection initialised to null
-    * @return rowCount
+    * @return associative array
     */
-    public function save($connection = null)
+
+    public static function find($id, $connection = null)
     {
-        if(is_null($connection))
-        {
+        if (is_null($connection)) {
             $connection = new Connection();
         }
 
-        if (isset($this->properties['data']) && is_array($this->properties['data']) ) {
-            $update = "UPDATE " . $this->getTableName() . " SET " . self::petrifier($this->properties) . " WHERE id=". $this->properties['data'][0]['id'];
-
-            $stmt = $connection->prepare($update);
-            $stmt->execute();
-            return $stmt->rowCount();
-        } else {
-             $columnNames = "";
-        $columnValues = "";
-        $count = 0;
-        $create = "INSERT" . " INTO " . $this->getTableName()." (";
-
-        foreach ($this->properties as $key => $val) {
-            $columnNames .= $key;
-            $columnValues .= ':' . $key;
-            $count++;
-
-            if ($count < count($this->properties))
-            {
-                $columnNames .= ', ';
-                $columnValues .= ', ';
-            }
-        }
-
-            $create .= $columnNames.') VALUES (' .$columnValues.')';
-            //var_dump($create, $this->data);
-            $stmt = $connection->prepare($create);
-                foreach ($this->properties as $key => $val) {
-                    $stmt->bindValue(':'.$key, $val);
+        try {
+            $sql = "SELECT " . "*" . " FROM " . self::getTableName() . " WHERE id = " . $id;
+            $record = $connection->prepare($sql);
+            $record->execute();
+            $count = $record->rowCount();
+                if ($count < 1) {
+                    throw new RecordNotFoundException('Sorry, record with id ' . $id . ' does not exist');
                 }
-            $stmt->execute();
-            return $stmt->rowCount();
+            } catch (RecordNotFoundException $e) {
+                return $e->getMessage();
+            } catch(PDOException $e) {
+                return $e->getExceptionMessage();
+            }
+
+            $result = new static;
+
+            $result = $record->fetchAll($connection::FETCH_CLASS,get_called_class());
+
+            //$result->id = $result->properties[0]['id'];
+
+             return $result[0];
+
+
         }
-    }
 
     /**
     * fetches all records from the database
@@ -124,6 +96,7 @@ abstract class Model implements ModelInterface
     */
     public static function getAll($connection = null)
     {
+
         if (is_null($connection)) {
             $connection = new Connection();
         }
@@ -140,37 +113,96 @@ abstract class Model implements ModelInterface
         return $row->fetchAll($connection::FETCH_ASSOC);
     }
 
-    /**
-    * returns a particular record
-    * @param $row reps the record id
-    * @param $connection initialised to null
-    * @return associative array
-    */
-
-    public static function find($id, $connection = null)
+    private function update()
     {
-        if (is_null($connection)) {
-            $connection = new Connection();
+        $connection = $this->getConnection();
+
+        $columnNames = "";
+        $columnValues = "";
+        $count = 0;
+
+        $update = "UPDATE " . $this->getTableName() . " SET " ;
+        foreach ($this->properties as $key => $val) {
+            $count++;
+
+            if(  ($key == 'id') ) {
+                continue;
+            }
+            $columnNames .= $key;
+            $columnValues .= ':' . $key;
+
+            if ($count < count($this->properties))
+            {
+                $columnNames .= ', ';
+                $columnValues .= ', ';
+            }
+
         }
 
-        try
+        $update .= $columnNames . "(". $columnValues . ")". " WHERE id = " . $this->properties['id'];
+         // echo $update;
+        $stmt = $connection->prepare($update);
+
+            foreach ($this->properties as $key => $val) {
+                if($key == 'id') {
+                    continue;
+                }
+                $stmt->bindValue(':'.$key, $val);
+                //var_export($stmt);
+            }
+        $stmt->execute();
+        echo $stmt->rowCount();
+    }
+
+    private function create()
+    {
+        $connection = $this->getConnection();
+        $columnNames = "";
+        $columnValues = "";
+        $count = 0;
+
+        $create = "INSERT" . " INTO " . $this->getTableName()." (";
+            foreach ($this->properties as $key => $val) {
+                $columnNames .= $key;
+                $columnValues .= ':' . $key;
+                $count++;
+
+                if ($count < count($this->properties))
+                {
+                    $columnNames .= ', ';
+                    $columnValues .= ', ';
+                }
+            }
+
+        $create .= $columnNames.') VALUES (' .$columnValues.')';
+        $stmt = $connection->prepare($create);
+            foreach ($this->properties as $key => $val) {
+                $stmt->bindValue(':'.$key, $val);
+            }
+        echo $stmt->execute();
+        return $stmt->rowCount();
+    }
+
+    public function getConnection($connection = null)
+    {
+        if(is_null($connection))
         {
-            $sql = "SELECT " . "*" . " FROM " . self::getTableName() . " WHERE id = " . $id;
-            $record = $connection->prepare($sql);
-            $record->execute();
-            $count = $record->rowCount();
+            return new Connection();
         }
-        catch (RecordNotFoundException $e) {
-            return $e->getMessage();
-        }
+    }
+    /**
+    * inserts record into the database
+    * @param $connection initialised to null
+    * @return rowCount
+    */
+    public function save()
+    {
 
-        if ($count < 1) {
-            throw new RecordNotFoundException('Record Not Found');
+        if ($this->id) {
+            $this->update();
+        } else {
+            $this->create();
         }
-
-        $result = new static;
-        $result->data = $record->fetchAll($connection::FETCH_ASSOC);
-        return $result;
     }
 
     /**
@@ -191,10 +223,11 @@ abstract class Model implements ModelInterface
             $count = $delete->rowCount();
 
             if ($count < 1) {
-                throw new RecordNotFoundException('Record Not Found');
+                throw new RecordNotFoundException('Sorry, record with id ' . $id . ' does not exist');
             }
-        }
-        catch (RecordNotFoundException $e) {
+        } catch (RecordNotFoundException $e) {
+            return $e->getExceptionMessage();
+        } catch(PDOException $e) {
             return $e->getExceptionMessage();
         }
         return ($count > 0) ? true : false;
