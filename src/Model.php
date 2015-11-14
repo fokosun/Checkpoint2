@@ -138,10 +138,7 @@ abstract class Model implements ModelInterface
         $stmt = $connection->prepare($update);
 
             foreach ($this->properties as $key => $val) {
-                if($key == 'id') {
-                    continue;
-                }
-                $stmt->bindValue(':'.$key, $val);
+                if($key == 'id') continue;
             }
         $stmt->execute();
         return $stmt->rowCount();
