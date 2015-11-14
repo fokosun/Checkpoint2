@@ -71,7 +71,7 @@ So first things first as usual: Let's say you have a class **User** that extends
 
         $user = User::destroy(1);
 
-**Uh, Oh update an existing record: A combination of the find and save methods**
+**Updating an existing record:**
 
         &user = User::find(3);
         $user->first_name = "Lindsay";
