@@ -80,7 +80,7 @@ So first things first as usual: Let's say you have a class **User** that extends
         
 
 
-`NB: Make sure you are updating fields already present in your database. You will have to take care of the exception thrown if the property does not exist on your database table` 
+`NB: The save() method checks first to see if the id exists. if yes, it calls the upadte method else calls the create method` 
 
 Nice and straight forward. Hey, i told you it was simple didn't I! 
 
