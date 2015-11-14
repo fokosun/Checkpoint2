@@ -5,7 +5,7 @@
 [![Total Downloads](https://poser.pugx.org/florence/potato/downloads)](https://packagist.org/packages/florence/potato)
 [![License](https://poser.pugx.org/florence/potato/license)](https://packagist.org/packages/florence/potato)
 
-# POtato ORM
+# Potato ORM
 Potato ORM is a really super simple agnostic ORM that can perform the basic crud database operations.
 
 Let's get started
