@@ -85,8 +85,6 @@ abstract class Model implements ModelInterface
             //$result->id = $result->properties[0]['id'];
 
              return $result[0];
-
-
         }
 
     /**
@@ -128,19 +126,15 @@ abstract class Model implements ModelInterface
             if(  ($key == 'id') ) {
                 continue;
             }
-            $columnNames .= $key;
-            $columnValues .= ':' . $key;
+            $update .= "$key = '$val'";
 
             if ($count < count($this->properties))
             {
-                $columnNames .= ', ';
-                $columnValues .= ', ';
+                $update .=",";
             }
 
         }
-
-        $update .= $columnNames . "(". $columnValues . ")". " WHERE id = " . $this->properties['id'];
-         // echo $update;
+        $update .= " WHERE id = " . $this->properties['id'];
         $stmt = $connection->prepare($update);
 
             foreach ($this->properties as $key => $val) {
@@ -148,10 +142,9 @@ abstract class Model implements ModelInterface
                     continue;
                 }
                 $stmt->bindValue(':'.$key, $val);
-                //var_export($stmt);
             }
         $stmt->execute();
-        echo $stmt->rowCount();
+        return $stmt->rowCount();
     }
 
     private function create()
@@ -179,7 +172,7 @@ abstract class Model implements ModelInterface
             foreach ($this->properties as $key => $val) {
                 $stmt->bindValue(':'.$key, $val);
             }
-        echo $stmt->execute();
+        $stmt->execute();
         return $stmt->rowCount();
     }
 
