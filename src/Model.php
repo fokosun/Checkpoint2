@@ -51,11 +51,11 @@ abstract class Model implements ModelInterface
         return $table;
     }
 
-        /**
+    /**
     * returns a particular record
-    * @param $row reps the record id
+    * @param $id reps the record id
     * @param $connection initialised to null
-    * @return associative array
+    * @return object
     */
 
     public static function find($id, $connection = null)
@@ -82,9 +82,7 @@ abstract class Model implements ModelInterface
 
             $result = $record->fetchAll($connection::FETCH_CLASS,get_called_class());
 
-            //$result->id = $result->properties[0]['id'];
-
-             return $result[0];
+            return $result[0];
         }
 
     /**
@@ -111,6 +109,9 @@ abstract class Model implements ModelInterface
         return $row->fetchAll($connection::FETCH_ASSOC);
     }
 
+    /** update table with instance properties
+    *
+    */
     private function update()
     {
         $connection = $this->getConnection();
@@ -132,7 +133,6 @@ abstract class Model implements ModelInterface
             {
                 $update .=",";
             }
-
         }
         $update .= " WHERE id = " . $this->properties['id'];
         $stmt = $connection->prepare($update);
@@ -144,6 +144,9 @@ abstract class Model implements ModelInterface
         return $stmt->rowCount();
     }
 
+    /**
+    * insert instance data into the table
+    */
     private function create()
     {
         $connection = $this->getConnection();
@@ -173,6 +176,9 @@ abstract class Model implements ModelInterface
         return $stmt->rowCount();
     }
 
+    /**
+    * get db connection
+    */
     public function getConnection($connection = null)
     {
         if(is_null($connection))
@@ -180,14 +186,14 @@ abstract class Model implements ModelInterface
             return new Connection();
         }
     }
+
     /**
-    * inserts record into the database
-    * @param $connection initialised to null
-    * @return rowCount
+    * checks if the id exists
+    * update if exist
+    * create if not exist
     */
     public function save()
     {
-
         if ($this->id) {
             $this->update();
         } else {
