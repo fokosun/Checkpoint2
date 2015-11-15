@@ -37,6 +37,16 @@ abstract class Model implements ModelInterface
     }
 
     /**
+     * Get all the model properties
+     *
+     * @return array
+     */
+     public function getProperties()
+     {
+         return $this->properties;
+     }
+
+    /**
     * Gets the name of the child class only
     * without the namespace
     * @var $className
@@ -83,6 +93,7 @@ abstract class Model implements ModelInterface
             $result = $record->fetchAll($connection::FETCH_CLASS,get_called_class());
 
             return $result[0];
+            var_dump($result[0]);
         }
 
     /**
