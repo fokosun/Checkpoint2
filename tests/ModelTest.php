@@ -32,21 +32,20 @@ class ModelTest extends \PHPUnit_Framework_TestCase
 
         $properties = $user->getProperties();
         $this->assertArrayHasKey('first_name', $properties);
+        $this->assertArrayHasKey('last_name', $properties);
         $this->assertNotEmpty($user->getProperties());
     }
 
     public function testGetAll()
     {
-        $this->connection->shouldReceive('prepare')->with("SELECT * FROM users")->andReturn($this->stmt);
-        $this->stmt->shouldReceive('execute');
+        $mock = m::mock('Florence\User');
+        $mock->shouldReceive('getAll')
+            ->andReturn(['id' => 1, 'first_name' => 'Frank', 'last_name' => 'Dunga', 'stack' => 'Comedy on Rails']);
 
-        $this->stmt->shouldReceive('rowCount')->andReturn(2);
-
-        $this->stmt->shouldReceive('fetchAll')->with(Connection::FETCH_ASSOC)
-            ->andReturn([['id' => 1, 'first_name' => 'Frank', 'last_name' => 'Dunga', 'stack' => 'Comedy on Rails'],
-                ['id' =>2, 'first_name' => 'Florence', 'last_name' => 'Okosun', 'stack' => 'PHPLaravel']]);
-
-        $this->assertCount(2, User::getAll($this->connection));
+        $this->assertArrayHasKey('id', $mock->getAll());
+        $this->assertContains('Frank', $mock->getAll());
+        $this->assertContains('Dunga', $mock->getAll());
+        $this->assertContains('Comedy on Rails', $mock->getAll());
     }
 
     /**
@@ -58,6 +57,9 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         $mock->shouldReceive('find')
             ->with(1)
             ->andReturn('Jargons');
+
+        $this->assertEquals('Jargons',$mock->find(1));
+
     }
 
     /**
@@ -77,11 +79,12 @@ class ModelTest extends \PHPUnit_Framework_TestCase
      */
     public function testDestroy()
     {
-        $this->connection->shouldReceive('prepare')->with("DELETE FROM users WHERE id = 12")->andReturn($this->stmt);
-        $this->stmt->shouldReceive('execute');
-        $this->stmt->shouldReceive('rowCount')->andReturn(1);
+        $mock = m::mock('Florence\User');
+        $mock->shouldReceive('destroy')
+            ->with(1)
+            ->andReturn(true);
 
-        $this->assertTrue(User::destroy(12, $this->connection));
+        $this->assertTrue($mock->destroy(1));
     }
 
 }

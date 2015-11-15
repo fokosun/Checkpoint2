@@ -16,6 +16,8 @@ use Florence\User;
 // $user->save();
 // echo $user;
 
+// $make = new Migration;
+// $make::migration('user');
 
 // $user = User::find(8);
 // $user->first_name = "Ogini";

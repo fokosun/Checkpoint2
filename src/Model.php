@@ -93,7 +93,7 @@ abstract class Model implements ModelInterface
             $result = $record->fetchAll($connection::FETCH_CLASS,get_called_class());
 
             return $result[0];
-            var_dump($result[0]);
+            // var_dump($result[0]);
         }
 
     /**
