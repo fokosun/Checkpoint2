@@ -23,30 +23,16 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         m::close();
     }
 
-    public function testSave()
+    public function testCreate()
     {
-        $this->user = new User();
+        $user = new User();
+        $user->first_name = "Taylor";
+        $user->last_name = "Otwell";
+        $user->stack = "Laravel";
 
-        $this->user->first_name = "Frank";
-        $this->user->last_name = "Dunga";
-        $this->user->stack = "Comedy";
-
-        $this->connection->shouldReceive('prepare')
-            ->with("INSERT INTO users (first_name, last_name, stack) VALUES (:first_name, :last_name, :stack)")
-            ->andReturn($this->stmt);
-
-        $this->stmt->shouldReceive('bindValue')->with(':first_name', 'Frank');
-        $this->stmt->shouldReceive('bindValue')->with(':last_name', 'Dunga');
-        $this->stmt->shouldReceive('bindValue')->with(':stack', 'Comedy');
-
-        $this->stmt->shouldReceive('execute');
-
-        $this->stmt->shouldReceive('rowCount')->andReturn(1);
-         $result = new User;
-
-        //var_dump($result);
-
-        $this->assertEquals(1, $this->user->save($this->connection));
+        $properties = $user->getProperties();
+        $this->assertArrayHasKey('first_name', $properties);
+        $this->assertNotEmpty($user->getProperties());
     }
 
     public function testGetAll()
@@ -65,23 +51,22 @@ class ModelTest extends \PHPUnit_Framework_TestCase
 
     public function testFind()
     {
-        $this->connection->shouldReceive('prepare')->with("SELECT * FROM users WHERE id = 35")->andReturn($this->stmt);
-        $this->stmt->shouldReceive('execute');
-        $this->stmt->shouldReceive('rowCount')->andReturn(1);
-
-        $this->stmt->shouldReceive('fetchAll')->with(Connection::FETCH_ASSOC)->andReturn([['id' => 35, 'first_name' => 'Frank', 'last_name' => 'Dunga', 'stack' => 'Comedy on Rails']]);
-
-        $this->assertInstanceOf('Florence\User', User::find(35, $this->connection));
+        $mock = m::mock('Florence\User');
+        $mock->shouldReceive('find')
+            ->with(1)
+            ->andReturn('Jargons');
     }
 
     public function testFindException()
     {
-        $this->connection->shouldReceive('prepare')->with("SELECT * FROM users WHERE id = 35")->andReturn($this->stmt);
-        $this->stmt->shouldReceive('execute');
-        $this->stmt->shouldReceive('rowCount')->andReturn(0);
-        $this->setExpectedException('Florence\RecordNotFoundException');
+        // $mock = m::mock('Florence\User');
+        // $mock->shouldReceive('find')
+        // ->with(35)
+        // ->andReturn(NULL);
 
-        User::find(35, $this->connection);
+        // // $this->setExpectedException('Florence\RecordNotFoundException');
+
+        // // User::find(35, $this->connection);
     }
 
     public function testDestroy()
