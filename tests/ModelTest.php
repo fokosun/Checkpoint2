@@ -49,6 +49,9 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(2, User::getAll($this->connection));
     }
 
+    /**
+     * Test id exists
+     */
     public function testFind()
     {
         $mock = m::mock('Florence\User');
@@ -57,18 +60,21 @@ class ModelTest extends \PHPUnit_Framework_TestCase
             ->andReturn('Jargons');
     }
 
-    public function testFindException()
-    {
-        // $mock = m::mock('Florence\User');
-        // $mock->shouldReceive('find')
-        // ->with(35)
-        // ->andReturn(NULL);
+    /**
+     * Test to see if a new model instance has unpopulated properties
+     */
+    public function testNewInstanceCreatesInstanceWithoutAttributes()
+     {
+        $model = new User();
+        $this->assertEmpty($model->getProperties());
+        $this->assertEquals(0, sizeof($model->getProperties()));
+        $this->assertEquals(0, count($model->getProperties()));
+        $this->assertArrayNotHasKey('id', $model->getProperties());
+     }
 
-        // // $this->setExpectedException('Florence\RecordNotFoundException');
-
-        // // User::find(35, $this->connection);
-    }
-
+     /**
+     * Test user can be deleted
+     */
     public function testDestroy()
     {
         $this->connection->shouldReceive('prepare')->with("DELETE FROM users WHERE id = 12")->andReturn($this->stmt);
