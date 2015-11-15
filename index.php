@@ -18,10 +18,11 @@ use Florence\User;
 
 
 // $user = User::find(8);
-// $user->first_name = "Pied Piper";
-// $user->last_name = "Minor";
-// $user->save();
-// var_dump($user);
+// $user->first_name = "Ogini";
+// $user->last_name = "Olorunfemi";
+// $check = $user->save();
+// $check ? yes : no ;
+// print_r($user);
 // $user = User::getAll();
 // echo"<pre>";
 // print_r($user);
