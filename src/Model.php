@@ -93,7 +93,6 @@ abstract class Model implements ModelInterface
             $result = $record->fetchAll($connection::FETCH_CLASS,get_called_class());
 
             return $result[0];
-            // var_dump($result[0]);
         }
 
     /**
@@ -101,7 +100,7 @@ abstract class Model implements ModelInterface
     * @param $connection initialised to null
     * @return associative array
     */
-    public static function getAll($connection = null)
+    public static function getAll()
     {
 
         if (is_null($connection)) {
@@ -135,12 +134,11 @@ abstract class Model implements ModelInterface
         foreach ($this->properties as $key => $val) {
             $count++;
 
-            if(  ($key == 'id') ) {
-                continue;
-            }
+            if(($key == 'id')) continue;
+
             $update .= "$key = '$val'";
 
-            if ($count < count($this->properties))
+            if ($count < count($this->properties) )
             {
                 $update .=",";
             }
@@ -151,7 +149,9 @@ abstract class Model implements ModelInterface
             foreach ($this->properties as $key => $val) {
                 if($key == 'id') continue;
             }
+
         $stmt->execute();
+
         return $stmt->rowCount();
     }
 
@@ -183,7 +183,15 @@ abstract class Model implements ModelInterface
             foreach ($this->properties as $key => $val) {
                 $stmt->bindValue(':'.$key, $val);
             }
-        $stmt->execute();
+
+            try {
+                // if prop returned and props from db differ throw exception
+                $stmt->execute();
+
+            } catch(PDOException $e){
+                return $e->getExceptionMessage();
+            }
+
         return $stmt->rowCount();
     }
 
@@ -230,7 +238,7 @@ abstract class Model implements ModelInterface
             $count = $delete->rowCount();
 
             if ($count < 1) {
-                throw new RecordNotFoundException('Sorry, record with id ' . $id . ' does not exist');
+                throw new RecordNotFoundException('Record with id ' . $id . ' does not exist.');
             }
         } catch (RecordNotFoundException $e) {
             return $e->getExceptionMessage();

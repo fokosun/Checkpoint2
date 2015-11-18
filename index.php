@@ -9,26 +9,35 @@
 require "vendor/autoload.php";
 
 use Florence\User;
+
 // $user = new User();
-// $user->first_name = "Daniel";
-// $user->last_name = "Verems";
-// $user->stack = "Programmer at Andela";
+// $user->first_name = "Nadayar";
+// $user->last_name = "Enegesi";
+// $user->stack = "Trainer";
 // $user->save();
-// echo $user;
 
-// $make = new Migration;
-// $make::migration('user');
-
-// $user = User::find(8);
-// $user->first_name = "Ogini";
-// $user->last_name = "Olorunfemi";
-// $check = $user->save();
-// $check ? yes : no ;
+//record does not exist
+// $user = User::find(100);
 // print_r($user);
-// $user = User::getAll();
+
+// record exist
+// $user = User::find(5);
+// print_r($user);
+
+$user = User::find(46);
+$user->id = 100;
+$user->first_name = "Nadayar";
+$check = $user->save();
+// echo ! $check ? 'successfully updated' : 'failed to update' ;
+
 // echo"<pre>";
-// print_r($user);
+// print_r(User::getAll());
 // echo"</pre>";
 
-// $user = User::destroy(12);
-// echo $user;
+// record exist
+// $user = User::destroy(420);
+// print_r($user);
+
+// record does not exist
+// $user = User::destroy(50);
+// print_r($user);

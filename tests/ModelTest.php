@@ -25,24 +25,34 @@ class ModelTest extends \PHPUnit_Framework_TestCase
 
     public function testCreate()
     {
-        $user = new User();
-        $user->first_name = "Taylor";
-        $user->last_name = "Otwell";
-        $user->stack = "Laravel";
+        $mock = m::mock('Florence\User');
 
-        $properties = $user->getProperties();
-        $this->assertArrayHasKey('first_name', $properties);
-        $this->assertArrayHasKey('last_name', $properties);
-        $this->assertNotEmpty($user->getProperties());
+        $mock->first_name = "Taylor";
+        $mock->last_name = "Otwell";
+        $mock->stack = "Laravel";
+        $mock->shouldReceive('getProperties')->andReturn(['first_name' => 'Taylor',
+                                                                          'last_name' => 'Otwell',
+                                                                          'stack' => 'Laravel']);
+        $this->assertArrayHasKey('first_name', $mock->getProperties());
+        $this->assertArrayHasKey('last_name', $mock->getProperties());
+        $this->assertArrayHasKey('stack', $mock->getProperties());
+        $this->assertNotEmpty($mock->getProperties());
     }
 
     public function testGetAll()
     {
         $mock = m::mock('Florence\User');
         $mock->shouldReceive('getAll')
-            ->andReturn(['id' => 1, 'first_name' => 'Frank', 'last_name' => 'Dunga', 'stack' => 'Comedy on Rails']);
+            ->andReturn(['id' => 1,
+                         'first_name' => 'Frank',
+                         'last_name' => 'Dunga',
+                         'stack' => 'Comedy on Rails'
+                        ]);
 
         $this->assertArrayHasKey('id', $mock->getAll());
+        $this->assertArrayHasKey('first_name', $mock->getAll());
+        $this->assertArrayHasKey('last_name', $mock->getAll());
+        $this->assertArrayHasKey('stack', $mock->getAll());
         $this->assertContains('Frank', $mock->getAll());
         $this->assertContains('Dunga', $mock->getAll());
         $this->assertContains('Comedy on Rails', $mock->getAll());
@@ -56,9 +66,9 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         $mock = m::mock('Florence\User');
         $mock->shouldReceive('find')
             ->with(1)
-            ->andReturn('Jargons');
+            ->andReturn('foo');
 
-        $this->assertEquals('Jargons',$mock->find(1));
+        $this->assertEquals('foo',$mock->find(1));
 
     }
 
@@ -67,11 +77,13 @@ class ModelTest extends \PHPUnit_Framework_TestCase
      */
     public function testNewInstanceCreatesInstanceWithoutAttributes()
      {
-        $model = new User();
-        $this->assertEmpty($model->getProperties());
-        $this->assertEquals(0, sizeof($model->getProperties()));
-        $this->assertEquals(0, count($model->getProperties()));
-        $this->assertArrayNotHasKey('id', $model->getProperties());
+        $mock = m::mock('Florence\User');
+        $mock->shouldReceive('getProperties')->andReturn([]);
+
+        $this->assertEmpty($mock->getProperties());
+        $this->assertEquals(0, sizeof($mock->getProperties()));
+        $this->assertEquals(0, count($mock->getProperties()));
+        $this->assertArrayNotHasKey('id', $mock->getProperties());
      }
 
      /**
