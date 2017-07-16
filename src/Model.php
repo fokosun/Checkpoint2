@@ -231,11 +231,17 @@ abstract class Model implements ModelInterface
     */
     public function save()
     {
-        if ($this->create() > 0) {
-            return 'Record created successfuly!';
-        } else {
-            return 'There was an error';
-        }
+        var_dump($this);
+
+//        if ($this->id) {
+//            $this->update();
+//        } else {
+//            if ($this->create() > 0) {
+//                return 'Record created successfuly!';
+//            } else {
+//                return 'There was an error';
+//            }
+//        }
     }
 
     /**
