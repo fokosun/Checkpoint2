@@ -24,7 +24,7 @@ abstract class Model implements ModelInterface
     /**
      * Database connection
      */
-    protected $connection;
+    static $connection;
 
     /**
      * Setter
@@ -79,21 +79,28 @@ abstract class Model implements ModelInterface
      */
     public function __construct()
     {
-        $this->connection = new Connection();
+        self::$connection = new Connection();
+    }
+
+    /**
+     * Get connection to database
+     *
+     * @return Connection
+     */
+    public function getConnection()
+    {
+        return self::$connection;
     }
 
     /**
      * Find a record by id
-     *
-     * @param int $id
-     * @param null $connection
      *
      * @return object
      */
     public static function find($id, $connection = null)
     {
         if (is_null($connection)) {
-            $connection = new Connection();
+            $connection = self::getConnection();
         }
 
         try {
@@ -200,7 +207,7 @@ abstract class Model implements ModelInterface
 
         $create .= $columnNames.') VALUES (' .$columnValues.')';
 
-        $stmt = $this->connection->prepare($create);
+        $stmt = self::$connection->prepare($create);
 
         foreach ($this->properties as $key => $val) {
             $stmt->bindValue(':'.$key, $val);
