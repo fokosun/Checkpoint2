@@ -12,6 +12,11 @@ use PDO;
 use PDOException;
 use Dotenv\Dotenv;
 
+/**
+ * Class Connection
+ *
+ * @package Florence
+ */
 class Connection extends PDO
 {
     protected $dsn = [];
@@ -22,11 +27,14 @@ class Connection extends PDO
     protected $driver;
     protected $envReader;
 
-
+    /**
+     * Initialise class
+     */
     public function __construct()
     {
         /**
         * Load the environment variables
+         *
         * @return connection object
         */
         $this->loadDotenv();
@@ -37,14 +45,22 @@ class Connection extends PDO
         $this->password = getenv('DB_PASSWORD');
         $this->driver = getenv('DB_CONNECTION');
 
-        $this->dsn = [$this->database, $this->host, $this->username, $this->password, $this->driver];
+        $this->dsn = [
+            $this->database,
+            $this->host,
+            $this->username,
+            $this->password,
+            $this->driver
+        ];
 
         list($database, $host, $username, $password, $driver) = $this->dsn;
 
         try
         {
-            parent::__construct("$driver:dbname=$database;host=$host", $username, $password,
-                [PDO::ATTR_PERSISTENT => true]);
+            parent::__construct(
+                "$driver:dbname=$database;host=$host", $username, $password,
+                [PDO::ATTR_PERSISTENT => true]
+            );
 
         }
         catch(PDOException $e)
@@ -54,15 +70,15 @@ class Connection extends PDO
     }
 
     /**
-    * use vlucas dotenv to access the .env file
+     * Load dotenv
+     *
+     * @return void
     **/
     protected function loadDotenv()
     {
-        if(getenv('APP_ENV') !== 'production')
-        {
+        if (getenv('APP_ENV') !== 'production') {
             $dotenv = new Dotenv(__DIR__);
             $dotenv->load();
         }
-
     }
 }
