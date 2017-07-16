@@ -35,42 +35,47 @@ Require via composer like so:
 
 ## Usage
 
-So first things first as usual: Let's say you have a class **User** that extends the base class
+- make sure to have a connection to the database of your choice
+- create your database tables using pluralized names e,g users, cars.
+- define the table schema e.g users table will look something like 
+[username, email, password, phone]
+- when the above is set, you can start using potatoORM
 
-    
+#### Example
+- create a model
+
         class User extends Model
         {
-     
+            // add methods that are not availble in parent class
         }
         
-**create a new instance of your class like so:**
+- create a new instance of the model you created
 
         $user = new User();
         
-**add the respective column names and populate values as you wish:**
+- add the respective column names and assign values
 
-        $user->first_name = "Florence";
-        $user->last_name = "Okosun";
-        $user->stack = "PHP/Laravel";
+        $user->username = "johndoe";
+        $user->email = "john@doe.com";
+        $user->phone = "08067890986";
         
-**call the save method on the user instance:**
+- save
 
         $user->save();
 
-**to fetch all the entries in the databsase:**
+- fetch all users
 
         $user = User::getAll();
 
-
-**to find a particular record, say the third record:**
+- find one user
 
         $user = User::find(3);
 
-**how about deleting a record?**
+- delete one user
 
         $user = User::destroy(1);
 
-**Updating an existing record:**
+- update user record
 
         &user = User::find(3);
         $user->first_name = "Lindsay";
