@@ -3,8 +3,6 @@
 namespace Florence\Test;
 
 use Mockery as m;
-use Florence\User;
-use Florence\Connection;
 
 /**
  * Class ModelTest
