@@ -104,7 +104,8 @@ abstract class Model implements ModelInterface
         }
 
         try {
-            $sql = "SELECT " . "*" . " FROM " . self::getTableName() . " WHERE id = " . $id;
+            $sql =  "SELECT " . "*" . " FROM ";
+            $sql = $sql . self::getTableName() . " WHERE id = " . $id;
             $record = $connection->prepare($sql);
             $record->execute();
             $count = $record->rowCount();
@@ -117,7 +118,7 @@ abstract class Model implements ModelInterface
         } catch (RecordNotFoundException $e) {
             return $e->getMessage();
         } catch(PDOException $e) {
-            return $e->getExceptionMessage();
+            return $e->getMessage();
         }
 
         $result = $record->fetchAll($connection::FETCH_CLASS, get_called_class());
