@@ -1,6 +1,5 @@
 
 [![Build Status](https://travis-ci.org/andela-fokosun/Checkpoint-Two.svg)](https://travis-ci.org/andela-fokosun/Checkpoint-Two)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/andela-fokosun/Checkpoint-Two/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/andela-fokosun/Checkpoint-Two/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/florence/potato/v/stable)](https://packagist.org/packages/florence/potato)
 [![Total Downloads](https://poser.pugx.org/florence/potato/downloads)](https://packagist.org/packages/florence/potato)
 [![License](https://poser.pugx.org/florence/potato/license)](https://packagist.org/packages/florence/potato)
