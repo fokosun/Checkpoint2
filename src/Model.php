@@ -10,17 +10,29 @@ namespace Florence;
 
 use PDOException;
 
+/**
+ * Class Model
+ * @package Florence
+ */
 abstract class Model implements ModelInterface
 {
     /**
-    * @var properties array to hold column name and values
+    * Table properties
     */
     protected  $properties = [];
 
     /**
-    * @param string $key rep column name
-    * @param string $val rep column value
-    * sets into $propertie the $key => $value pairs
+     * Database connection
+     */
+    protected $connection;
+
+    /**
+     * Setter
+     *
+     * @param string $key column name
+     * @param string $val column value
+     *
+     * @return void
     */
     public  function __set($key, $val)
     {
@@ -28,8 +40,11 @@ abstract class Model implements ModelInterface
     }
 
     /**
-    * @param string $key reps the column name
-    * @return $key and $value
+     * Getter
+     *
+     * @param string $key column name
+     *
+     * @return array
     */
     public function __get($key)
     {
@@ -41,17 +56,15 @@ abstract class Model implements ModelInterface
      *
      * @return array
      */
-     public function getProperties()
-     {
-         return $this->properties;
-     }
+    public function getProperties()
+    {
+        return $this->properties;
+    }
 
     /**
-    * Gets the name of the child class only
-    * without the namespace
-    * @var $className
-    * @var $table
-    * @return $table
+     * Gets the name of the child class
+     *
+     * @return string
     */
     public static function getTableName()
     {
@@ -62,12 +75,23 @@ abstract class Model implements ModelInterface
     }
 
     /**
-    * returns a particular record
-    * @param $id reps the record id
-    * @param $connection initialised to null
-    * @return object
-    */
+     * Initialise class
+     *
+     * @param \Florence\Connection $connection Database connection class
+     */
+    public function __construct(Connection $connection)
+    {
+        $this->connection = $connection;
+    }
 
+    /**
+     * Find a record by id
+     *
+     * @param int $id
+     * @param null $connection
+     *
+     * @return object
+     */
     public static function find($id, $connection = null)
     {
         if (is_null($connection)) {
@@ -79,28 +103,27 @@ abstract class Model implements ModelInterface
             $record = $connection->prepare($sql);
             $record->execute();
             $count = $record->rowCount();
-                if ($count < 1) {
-                    throw new RecordNotFoundException('Sorry, record with id ' . $id . ' does not exist');
-                }
-            } catch (RecordNotFoundException $e) {
-                return $e->getMessage();
-            } catch(PDOException $e) {
-                return $e->getExceptionMessage();
+
+            if ($count < 1) {
+                throw new RecordNotFoundException('Sorry, record with id ' . $id . ' does not exist');
             }
-
-            $result = new static;
-
-            $result = $record->fetchAll($connection::FETCH_CLASS,get_called_class());
-
-            return $result[0];
+        } catch (RecordNotFoundException $e) {
+            return $e->getMessage();
+        } catch(PDOException $e) {
+            return $e->getExceptionMessage();
         }
+
+        $result = $record->fetchAll($connection::FETCH_CLASS, get_called_class());
+
+        return $result[0];
+    }
 
     /**
     * fetches all records from the database
     * @param $connection initialised to null
     * @return associative array
     */
-    public static function getAll()
+    public static function getAll($connection = null)
     {
 
         if (is_null($connection)) {
@@ -156,67 +179,54 @@ abstract class Model implements ModelInterface
     }
 
     /**
-    * insert instance data into the table
+    * Insert instance data into the table
     */
     private function create()
     {
-        $connection = $this->getConnection();
         $columnNames = "";
         $columnValues = "";
         $count = 0;
 
         $create = "INSERT" . " INTO " . $this->getTableName()." (";
-            foreach ($this->properties as $key => $val) {
-                $columnNames .= $key;
-                $columnValues .= ':' . $key;
-                $count++;
 
-                if ($count < count($this->properties))
-                {
-                    $columnNames .= ', ';
-                    $columnValues .= ', ';
-                }
+        foreach ($this->properties as $key => $val) {
+            $columnNames .= $key;
+            $columnValues .= ':' . $key;
+            $count++;
+
+            if ($count < count($this->getProperties())) {
+                $columnNames .= ', ';
+                $columnValues .= ', ';
             }
+        }
 
         $create .= $columnNames.') VALUES (' .$columnValues.')';
-        $stmt = $connection->prepare($create);
-            foreach ($this->properties as $key => $val) {
-                $stmt->bindValue(':'.$key, $val);
-            }
 
-            try {
-                // if prop returned and props from db differ throw exception
-                $stmt->execute();
+        $stmt = $this->connection->prepare($create);
 
-            } catch(PDOException $e){
-                return $e->getExceptionMessage();
-            }
-
-        return $stmt->rowCount();
-    }
-
-    /**
-    * get db connection
-    */
-    public function getConnection($connection = null)
-    {
-        if(is_null($connection))
-        {
-            return new Connection();
+        foreach ($this->properties as $key => $val) {
+            $stmt->bindValue(':'.$key, $val);
         }
+
+        try {
+            $stmt->execute();
+            $response = $stmt->rowCount();
+        } catch(PDOException $e){
+            $response = $e->getExceptionMessage();
+        }
+
+        return $response;
     }
 
     /**
-    * checks if the id exists
-    * update if exist
-    * create if not exist
+    * Checks if the id exists update if exist create if not exist
     */
     public function save()
     {
-        if ($this->id) {
-            $this->update();
+        if ($this->create() > 0) {
+            return 'Record created successfuly!';
         } else {
-            $this->create();
+            return 'There was an error';
         }
     }
 
