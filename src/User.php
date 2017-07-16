@@ -8,7 +8,12 @@
 
 namespace Florence;
 
+/**
+ * Class User
+ *
+ * @package Florence
+ */
 class User extends Model
 {
-    //inherits base class
+    // inherits base class
 }
