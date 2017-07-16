@@ -6,23 +6,41 @@ use Mockery as m;
 use Florence\User;
 use Florence\Connection;
 
-
+/**
+ * Class ModelTest
+ */
 class ModelTest extends \PHPUnit_Framework_TestCase
 {
     protected $user;
     protected $connection;
     protected $stmt;
 
+    /**
+     * Setup method
+     *
+     * @return void
+     */
     public function setUp()
     {
         $this->connection = m::mock('Florence\Connection');
         $this->stmt = m::mock('\PDOStatement');
     }
 
-    public function tearDown() {
+    /**
+     * Teardown method
+     *
+     * @return void
+     */
+    public function tearDown()
+    {
         m::close();
     }
 
+    /**
+     * Test create method
+     *
+     * @return void
+     */
     public function testCreate()
     {
         $mock = m::mock('Florence\User');
@@ -30,24 +48,36 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         $mock->first_name = "Taylor";
         $mock->last_name = "Otwell";
         $mock->stack = "Laravel";
-        $mock->shouldReceive('getProperties')->andReturn(['first_name' => 'Taylor',
-                                                                          'last_name' => 'Otwell',
-                                                                          'stack' => 'Laravel']);
+        $mock->shouldReceive('getProperties')->andReturn(
+            [
+                'first_name' => 'Taylor',
+                'last_name' => 'Otwell',
+                'stack' => 'Laravel',
+            ]
+        );
+
         $this->assertArrayHasKey('first_name', $mock->getProperties());
         $this->assertArrayHasKey('last_name', $mock->getProperties());
         $this->assertArrayHasKey('stack', $mock->getProperties());
         $this->assertNotEmpty($mock->getProperties());
     }
 
+    /**
+     * Test getAll method
+     *
+     * @return void
+     */
     public function testGetAll()
     {
         $mock = m::mock('Florence\User');
-        $mock->shouldReceive('getAll')
-            ->andReturn(['id' => 1,
-                         'first_name' => 'Frank',
-                         'last_name' => 'Dunga',
-                         'stack' => 'Comedy on Rails'
-                        ]);
+        $mock->shouldReceive('getAll')->andReturn(
+            [
+                'id' => 1,
+                'first_name' => 'Frank',
+                'last_name' => 'Dunga',
+                'stack' => 'Comedy on Rails'
+            ]
+        );
 
         $this->assertArrayHasKey('id', $mock->getAll());
         $this->assertArrayHasKey('first_name', $mock->getAll());
@@ -59,7 +89,9 @@ class ModelTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test id exists
+     * Test find method
+     *
+     * @return void
      */
     public function testFind()
     {
@@ -68,15 +100,17 @@ class ModelTest extends \PHPUnit_Framework_TestCase
             ->with(1)
             ->andReturn('foo');
 
-        $this->assertEquals('foo',$mock->find(1));
+        $this->assertEquals('foo', $mock->find(1));
 
     }
 
     /**
      * Test to see if a new model instance has unpopulated properties
+     *
+     * @return void
      */
     public function testNewInstanceCreatesInstanceWithoutAttributes()
-     {
+    {
         $mock = m::mock('Florence\User');
         $mock->shouldReceive('getProperties')->andReturn([]);
 
@@ -84,10 +118,12 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, sizeof($mock->getProperties()));
         $this->assertEquals(0, count($mock->getProperties()));
         $this->assertArrayNotHasKey('id', $mock->getProperties());
-     }
+    }
 
      /**
-     * Test user can be deleted
+     * Test destroy method
+      *
+      * @return void
      */
     public function testDestroy()
     {
