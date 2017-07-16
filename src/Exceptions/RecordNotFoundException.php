@@ -10,16 +10,27 @@ namespace Florence;
 
 use Exception;
 
+/**
+ * Class RecordNotFoundException
+ * @package Florence
+ */
 class RecordNotFoundException extends Exception
 {
     protected $message;
 
+    /**
+     * Initialise class
+     *
+     * @param string $message exception message
+     */
     public function __construct($message)
     {
         $this->message = $message;
     }
 
     /**
+     * Get the exception message
+     *
     * @return Exception Message
     */
     public function getExceptionMessage()
