@@ -12,10 +12,10 @@ Let's get started
 
 - **Connection** - Loads and reads the .env file, returns the PDO connection object
 
-- **WordNotFoundException** - It is what it is, an exception class!
+- **RecordNotFoundException** - An exception class, triggered when 
+table name is not found in database.
 
-- **User, Car** - Example classes, they extend the Model class
-
+- **User, Car** - Example classes, they extend the Model class.
 
 
 ## Testing
