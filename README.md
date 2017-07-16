@@ -47,7 +47,7 @@ Require via composer:
 
 - find one user
 
-        $user = User::find(3);
+        $user = User::find(1);
 
 - delete one user
 
