@@ -13,10 +13,10 @@ Require via composer:
 
 ## Usage
 
-- make sure to establish a connection your database
+- make sure to establish a connection to  database
 - create your database tables using pluralized names e.g users, cars.
-- define the table schema e.g users table will look something like 
-[username, email, password, phone]
+- define the table schema e.g users table schema could look like 
+:point_right: [username, email, password, phone]
 - when the above is set, you can start using potatoORM
 
 #### Example
