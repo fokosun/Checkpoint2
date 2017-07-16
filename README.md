@@ -1,33 +1,11 @@
 [![Build Status](https://travis-ci.org/andela-fokosun/Checkpoint2.svg?branch=master)](https://travis-ci.org/andela-fokosun/Checkpoint2)
 
-
 # Potato ORM
 Potato ORM is a really super simple agnostic ORM that can perform the basic crud database operations.
 
-Let's get started
-
-## Classes
-
-- **Model** - Abstract base class
-
-- **ModelInterface** - Contract that define methods that must be 
-implemented
-
-- **Connection** - Loads and reads the .env file, returns the PDO connection object
-
-- **RecordNotFoundException** - An exception class, triggered when 
-table name is not found in database.
-
-- **User, Car** - Example classes, they extend the Model class.
-
-
-## Testing
-Phpunit 5.0 was used for testing the classes. Find the test file
-[here](https://github.com/andela-fokosun/Checkpoint-Two/blob/master/tests/)
-
 ## Installation
 
-Require via composer like so:
+Require via composer:
 
 ```
     composer require florence/potato
@@ -35,7 +13,7 @@ Require via composer like so:
 
 ## Usage
 
-- make sure to have a connection to the database of your choice
+- make sure to establish a connection your database
 - create your database tables using pluralized names e,g users, cars.
 - define the table schema e.g users table will look something like 
 [username, email, password, phone]
