@@ -61,11 +61,9 @@ Require via composer:
         $user->save();     
         
 
-
-`NB: The save() method checks first to see if the id exists. if yes, it calls the upadte method else calls the create method` 
-
-Nice and straight forward. Hey, i told you it was simple didn't I! 
-
-Potato ORM is an open-source project, so please feel free to tell family and friends to use or contribute to Potato ORM.
+Potato ORM is an open-source project and still pretty much work in 
+progress. It does not handle table relationships as at this version 
+and can only carry out simple crud operations. Please feel free to 
+contribute to make this as awesome as it can get.
 
 **Happy Coding!**
