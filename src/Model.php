@@ -110,7 +110,9 @@ abstract class Model implements ModelInterface
             $count = $record->rowCount();
 
             if ($count < 1) {
-                throw new RecordNotFoundException('Sorry, record with id ' . $id . ' does not exist');
+                throw new RecordNotFoundException(
+                    'Record not found!' . PHP_EOL
+                );
             }
         } catch (RecordNotFoundException $e) {
             return $e->getMessage();
