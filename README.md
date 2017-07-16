@@ -8,7 +8,10 @@ Let's get started
 
 ## Classes
 
-- **Model** - Implements the Model Interface. User, Car example classes extend this class.
+- **Model** - Abstract base class
+
+- **ModelInterface** - Contract that define methods that must be 
+implemented
 
 - **Connection** - Loads and reads the .env file, returns the PDO connection object
 
