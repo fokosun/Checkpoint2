@@ -1,8 +1,5 @@
+[![Build Status](https://travis-ci.org/andela-fokosun/Checkpoint2.svg?branch=master)](https://travis-ci.org/andela-fokosun/Checkpoint2)
 
-[![Build Status](https://travis-ci.org/andela-fokosun/Checkpoint-Two.svg)](https://travis-ci.org/andela-fokosun/Checkpoint-Two)
-[![Latest Stable Version](https://poser.pugx.org/florence/potato/v/stable)](https://packagist.org/packages/florence/potato)
-[![Total Downloads](https://poser.pugx.org/florence/potato/downloads)](https://packagist.org/packages/florence/potato)
-[![License](https://poser.pugx.org/florence/potato/license)](https://packagist.org/packages/florence/potato)
 
 # Potato ORM
 Potato ORM is a really super simple agnostic ORM that can perform the basic crud database operations.
