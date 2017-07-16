@@ -13,7 +13,7 @@ Require via composer:
 
 ## Usage
 
-- make sure to establish a connection to  database
+- make sure to establish a connection to your database
 - create your database tables using pluralized names e.g users, cars.
 - define the table schema e.g users table schema could look like 
 :point_right: [username, email, password, phone]
