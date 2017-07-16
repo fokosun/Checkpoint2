@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/andela-fokosun/Checkpoint2.svg?branch=master)](https://travis-ci.org/andela-fokosun/Checkpoint2)
 
 # Potato ORM
-Potato ORM is a really super simple agnostic ORM that can perform the basic crud database operations.
+Potato ORM is a simple and very basic ORM that can perform the basic crud database operations.
 
 ## Installation
 
