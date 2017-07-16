@@ -24,7 +24,7 @@ Require via composer:
 
         class User extends Model
         {
-            // add methods that are not availble in parent class
+            // add methods that are not available in parent class
         }
         
 - create a new instance of the model you created
