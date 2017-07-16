@@ -76,12 +76,10 @@ abstract class Model implements ModelInterface
 
     /**
      * Initialise class
-     *
-     * @param \Florence\Connection $connection Database connection class
      */
-    public function __construct(Connection $connection)
+    public function __construct()
     {
-        $this->connection = $connection;
+        $this->connection = new Connection();
     }
 
     /**
