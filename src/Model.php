@@ -227,21 +227,21 @@ abstract class Model implements ModelInterface
     }
 
     /**
-    * Checks if the id exists update if exist create if not exist
+    * Update or save record
+     *
+     * @return mixed
     */
     public function save()
     {
-        var_dump($this);
-
-//        if ($this->id) {
-//            $this->update();
-//        } else {
-//            if ($this->create() > 0) {
-//                return 'Record created successfuly!';
-//            } else {
-//                return 'There was an error';
-//            }
-//        }
+        if (array_key_exists('id', $this->properties)) {
+            $this->update();
+        } else {
+            if ($this->create() > 0) {
+                return 'Record created successfuly!';
+            } else {
+                return 'There was an error';
+            }
+        }
     }
 
     /**
