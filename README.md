@@ -14,7 +14,7 @@ Require via composer:
 ## Usage
 
 - make sure to establish a connection your database
-- create your database tables using pluralized names e,g users, cars.
+- create your database tables using pluralized names e.g users, cars.
 - define the table schema e.g users table will look something like 
 [username, email, password, phone]
 - when the above is set, you can start using potatoORM
@@ -56,8 +56,8 @@ Require via composer:
 - update user record
 
         &user = User::find(3);
-        $user->first_name = "Lindsay";
-        $user->Last_name = "Mark";
+        $user->username = "Lindsay";
+        $user->email = "lindsay@africa.com";
         $user->save();     
         
 
