@@ -226,7 +226,7 @@ abstract class Model implements ModelInterface
     }
 
     /**
-    * Update or save record
+     * Update or save record
      *
      * @return mixed
     */
@@ -244,13 +244,16 @@ abstract class Model implements ModelInterface
     }
 
     /**
-    * @param row reps record id
-    * @param $connection initialised to null
-    * @return boolean
-    */
+     * Delete record
+     *
+     * @param $id
+     * @param null $connection
+     *
+     * @return bool|\Exception|mixed
+     */
     public static function destroy($id, $connection= null)
     {
-        if(is_null($connection)) {
+        if (is_null($connection)) {
             $connection = new Connection();
         }
 
@@ -261,13 +264,14 @@ abstract class Model implements ModelInterface
             $count = $delete->rowCount();
 
             if ($count < 1) {
-                throw new RecordNotFoundException('Record with id ' . $id . ' does not exist.');
+                throw new RecordNotFoundException('Record with id does not exist!');
             }
         } catch (RecordNotFoundException $e) {
             return $e->getExceptionMessage();
         } catch(PDOException $e) {
-            return $e->getExceptionMessage();
+            return $e->getMessage();
         }
+
         return ($count > 0) ? true : false;
     }
 }
