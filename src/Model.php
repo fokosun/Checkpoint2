@@ -127,19 +127,19 @@ abstract class Model implements ModelInterface
     }
 
     /**
-    * fetches all records from the database
-    * @param $connection initialised to null
-    * @return associative array
-    */
+     * Get all records from the database
+     *
+     * @param null $connection
+     *
+     * @return array|mixed|string
+     */
     public static function getAll($connection = null)
     {
-
         if (is_null($connection)) {
             $connection = new Connection();
         }
 
-        try
-        {
+        try {
             $sql = "SELECT " . "*" . " FROM ". self::getTableName();
             $row = $connection->prepare($sql);
             $row->execute();
