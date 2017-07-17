@@ -3,6 +3,7 @@
 namespace Florence\Test;
 
 use Mockery as m;
+use Florence\RecordNotFoundException;
 
 /**
  * Class ModelTest
@@ -10,8 +11,8 @@ use Mockery as m;
 class ModelTest extends \PHPUnit_Framework_TestCase
 {
     protected $user;
-    protected $connection;
     protected $stmt;
+    protected $connection;
 
     /**
      * Setup method
@@ -46,6 +47,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         $mock->first_name = "Taylor";
         $mock->last_name = "Otwell";
         $mock->stack = "Laravel";
+
         $mock->shouldReceive('getProperties')->andReturn(
             [
                 'first_name' => 'Taylor',
@@ -54,6 +56,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
             ]
         );
 
+        $this->assertInstanceOf('Florence\Model', $mock);
         $this->assertArrayHasKey('first_name', $mock->getProperties());
         $this->assertArrayHasKey('last_name', $mock->getProperties());
         $this->assertArrayHasKey('stack', $mock->getProperties());
@@ -68,6 +71,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
     public function testGetAll()
     {
         $mock = m::mock('Florence\User');
+
         $mock->shouldReceive('getAll')->andReturn(
             [
                 'id' => 1,
@@ -81,6 +85,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('first_name', $mock->getAll());
         $this->assertArrayHasKey('last_name', $mock->getAll());
         $this->assertArrayHasKey('stack', $mock->getAll());
+
         $this->assertContains('Frank', $mock->getAll());
         $this->assertContains('Dunga', $mock->getAll());
         $this->assertContains('Comedy on Rails', $mock->getAll());
@@ -94,12 +99,12 @@ class ModelTest extends \PHPUnit_Framework_TestCase
     public function testFind()
     {
         $mock = m::mock('Florence\User');
+
         $mock->shouldReceive('find')
             ->with(1)
             ->andReturn('foo');
 
         $this->assertEquals('foo', $mock->find(1));
-
     }
 
     /**
@@ -126,11 +131,11 @@ class ModelTest extends \PHPUnit_Framework_TestCase
     public function testDestroy()
     {
         $mock = m::mock('Florence\User');
+
         $mock->shouldReceive('destroy')
             ->with(1)
             ->andReturn(true);
 
         $this->assertTrue($mock->destroy(1));
     }
-
 }
