@@ -150,18 +150,17 @@ abstract class Model implements ModelInterface
         return $row->fetchAll($connection::FETCH_ASSOC);
     }
 
-    /** update table with instance properties
-    *
+    /**
+     * Update table with instance properties
+     *
+     * @return int
     */
     private function update()
     {
         $connection = $this->getConnection();
-
-        $columnNames = "";
-        $columnValues = "";
         $count = 0;
-
         $update = "UPDATE " . $this->getTableName() . " SET " ;
+
         foreach ($this->properties as $key => $val) {
             $count++;
 
@@ -169,17 +168,17 @@ abstract class Model implements ModelInterface
 
             $update .= "$key = '$val'";
 
-            if ($count < count($this->properties) )
-            {
+            if ($count < count($this->properties) ) {
                 $update .=",";
             }
         }
+
         $update .= " WHERE id = " . $this->properties['id'];
         $stmt = $connection->prepare($update);
 
-            foreach ($this->properties as $key => $val) {
-                if($key == 'id') continue;
-            }
+        foreach ($this->properties as $key => $val) {
+            if($key == 'id') continue;
+        }
 
         $stmt->execute();
 
