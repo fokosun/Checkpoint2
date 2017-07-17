@@ -37,7 +37,7 @@ class Connection extends PDO
          *
         * @return connection object
         */
-        $this->loadDotenv();
+        self::loadDotenv();
 
         $this->database = getenv('DB_DATABASE');
         $this->host = getenv('DB_host');
@@ -74,11 +74,21 @@ class Connection extends PDO
      *
      * @return void
     **/
-    protected function loadDotenv()
+    static function loadDotenv()
     {
         if (getenv('APP_ENV') !== 'production') {
             $dotenv = new Dotenv(__DIR__);
             $dotenv->load();
         }
+    }
+
+    /**
+     * Get Database Name
+     *
+     * @return string
+     */
+    public function getDatabase()
+    {
+        return $this->database;
     }
 }

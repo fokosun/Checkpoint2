@@ -3,7 +3,6 @@
 namespace Florence\Test;
 
 use Mockery as m;
-use Florence\RecordNotFoundException;
 
 /**
  * Class ModelTest
@@ -13,17 +12,6 @@ class ModelTest extends \PHPUnit_Framework_TestCase
     protected $user;
     protected $stmt;
     protected $connection;
-
-    /**
-     * Setup method
-     *
-     * @return void
-     */
-    public function setUp()
-    {
-        $this->connection = m::mock('Florence\Connection');
-        $this->stmt = m::mock('\PDOStatement');
-    }
 
     /**
      * Teardown method
@@ -71,6 +59,18 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('last_name', $mock->getProperties());
         $this->assertArrayHasKey('stack', $mock->getProperties());
         $this->assertNotEmpty($mock->getProperties());
+    }
+
+    /**
+     * Test table name
+     */
+    public function testTableName()
+    {
+        $mock = m::mock('Florence\User');
+
+        $mock->shouldReceive('getTableName')->andReturn('users');
+
+        $this->assertEquals('users', $mock::getTableName());
     }
 
     /**
