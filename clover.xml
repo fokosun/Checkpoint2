@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1500302879">
-  <project timestamp="1500302879">
+<coverage generated="1500303418">
+  <project timestamp="1500303418">
     <package name="Florence">
       <file name="/Users/florenceokosun/Code/potatoORM/Checkpoint2/src/Car.php">
         <class name="Car" namespace="Florence">
