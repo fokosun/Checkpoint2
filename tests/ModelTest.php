@@ -56,6 +56,16 @@ class ModelTest extends \PHPUnit_Framework_TestCase
             ]
         );
 
+        $this->assertEquals('Taylor', $mock->first_name);
+        $this->assertEquals('Otwell', $mock->last_name);
+        $this->assertEquals('Laravel', $mock->stack);
+
+        $this->assertInternalType('array', $mock->getProperties());
+
+        $this->assertArrayHasKey('first_name', $mock->getProperties());
+        $this->assertArrayHasKey('last_name', $mock->getProperties());
+        $this->assertArrayHasKey('stack', $mock->getProperties());
+
         $this->assertInstanceOf('Florence\Model', $mock);
         $this->assertArrayHasKey('first_name', $mock->getProperties());
         $this->assertArrayHasKey('last_name', $mock->getProperties());
