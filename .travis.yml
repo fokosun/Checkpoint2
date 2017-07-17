@@ -23,7 +23,6 @@ cache:
   directories:
     - $HOME/.composer/cache
 
-
 before_install:
   - composer self-update
   - composer validate
@@ -32,6 +31,16 @@ install: travis_retry composer install --no-interaction --prefer-source
 
 script: vendor/bin/phpunit
 
-after_script:
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+before_script:
+  - composer self-update
+  - composer install --prefer-source --no-interaction --dev
+
+script:
+  - mkdir -p build/logs
+  - php vendor/bin/phpunit -c phpunit.xml.dist
+  - vendor/bin/phpunit --coverage-clover=build/logs/clover.xml
+
+after_success:
+  - travis_retry php vendor/bin/coveralls
+  - travis_retry php vendor/bin/coveralls -v
+  - bash <(curl -s https://codecov.io/bash)

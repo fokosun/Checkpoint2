@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/andela-fokosun/Checkpoint2.svg?branch=master)](https://travis-ci.org/andela-fokosun/Checkpoint2)
+[![Coverage Status](https://coveralls.io/repos/github/andela-fokosun/Checkpoint2/badge.svg?branch=master)](https://coveralls.io/github/andela-fokosun/Checkpoint2?branch=master)    [![Build Status](https://travis-ci.org/andela-fokosun/Checkpoint2.svg?branch=master)](https://travis-ci.org/andela-fokosun/Checkpoint2)
 
 # Potato ORM
 Potato ORM is a simple and very basic ORM that can perform the basic crud database operations.
