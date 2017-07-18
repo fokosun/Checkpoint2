@@ -2,6 +2,7 @@
 
 namespace Florence\Test;
 
+use Florence\Model;
 use Mockery as m;
 
 /**
@@ -44,9 +45,11 @@ class ModelTest extends \PHPUnit_Framework_TestCase
             ]
         );
 
-        $this->assertEquals('Taylor', $mock->first_name);
-        $this->assertEquals('Otwell', $mock->last_name);
-        $this->assertEquals('Laravel', $mock->stack);
+        $this->assertArrayHasKey('first_name', $mock->getProperties());
+        $this->assertArrayHasKey('last_name', $mock->getProperties());
+        $this->assertArrayHasKey('stack', $mock->getProperties());
+
+        $this->assertInstanceOf('Florence\Model', $mock);
 
         $this->assertInternalType('array', $mock->getProperties());
 
@@ -54,11 +57,43 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('last_name', $mock->getProperties());
         $this->assertArrayHasKey('stack', $mock->getProperties());
 
-        $this->assertInstanceOf('Florence\Model', $mock);
-        $this->assertArrayHasKey('first_name', $mock->getProperties());
-        $this->assertArrayHasKey('last_name', $mock->getProperties());
-        $this->assertArrayHasKey('stack', $mock->getProperties());
         $this->assertNotEmpty($mock->getProperties());
+    }
+
+    /**
+     * Test that instance properties can set/get
+     */
+    public function testInstancePropertiesCanSetGet()
+    {
+        $mock = m::mock('Florence\User');
+
+        $mock->first_name = "Taylor";
+        $mock->last_name = "Otwell";
+        $mock->email = "taylor.otwell@laravel.com";
+        $mock->phone = "+2348022503376";
+
+        $fields = [
+            "first_name" => "Taylor",
+            "last_name" => "Otwell",
+            "email" => "taylor.otwell@laravel.com",
+            "phone" => "+2348022503376",
+        ];
+
+        $mock->shouldReceive('getProperties')->andReturn(
+            [
+                "first_name" => "Taylor",
+                "last_name" => "Otwell",
+                "email" => "taylor.otwell@laravel.com",
+                "phone" => "+2348022503376",
+            ]
+        );
+
+        $this->assertEquals($fields, $mock->getProperties());
+
+        $this->assertEquals('Taylor', $mock->first_name);
+        $this->assertEquals('Otwell', $mock->last_name);
+        $this->assertEquals('taylor.otwell@laravel.com', $mock->email);
+        $this->assertEquals('2348022503376', $mock->phone);
     }
 
     /**
