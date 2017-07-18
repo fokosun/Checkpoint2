@@ -2,9 +2,8 @@
 
 namespace Florence\Test;
 
-use Florence\Model;
-use Florence\User;
 use Mockery as m;
+use Florence\User;
 
 /**
  * Class ModelTest
