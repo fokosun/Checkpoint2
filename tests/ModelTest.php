@@ -3,6 +3,7 @@
 namespace Florence\Test;
 
 use Florence\Model;
+use Florence\User;
 use Mockery as m;
 
 /**
@@ -22,6 +23,36 @@ class ModelTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         m::close();
+    }
+
+    /**
+     * Test that instance table name is pluralised
+     */
+    public function testInstanceTableNameIspluralised()
+    {
+        $user = new User();
+
+        $this->assertEquals('users', $user::getTableName());
+    }
+
+    /**
+     * Test getProperties method
+     */
+    public function testInstanceproperties()
+    {
+        $fields = [
+            "first_name" => "Taylor",
+            "last_name" => "Otwell",
+            "email" => "taylor.otwell@laravel.com",
+        ];
+
+        $user = new User();
+
+        $user->first_name = "Taylor";
+        $user->last_name = "Otwell";
+        $user->email = "taylor.otwell@laravel.com";
+
+        $this->assertEquals($fields, $user->getProperties());
     }
 
     /**
@@ -71,24 +102,6 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         $mock->last_name = "Otwell";
         $mock->email = "taylor.otwell@laravel.com";
         $mock->phone = "+2348022503376";
-
-        $fields = [
-            "first_name" => "Taylor",
-            "last_name" => "Otwell",
-            "email" => "taylor.otwell@laravel.com",
-            "phone" => "+2348022503376",
-        ];
-
-        $mock->shouldReceive('getProperties')->andReturn(
-            [
-                "first_name" => "Taylor",
-                "last_name" => "Otwell",
-                "email" => "taylor.otwell@laravel.com",
-                "phone" => "+2348022503376",
-            ]
-        );
-
-        $this->assertEquals($fields, $mock->getProperties());
 
         $this->assertEquals('Taylor', $mock->first_name);
         $this->assertEquals('Otwell', $mock->last_name);
