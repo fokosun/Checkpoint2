@@ -27,32 +27,32 @@ class ModelTest extends \PHPUnit_Framework_TestCase
     /**
      * Test that instance table name is pluralised
      */
-    public function testInstanceTableNameIspluralised()
-    {
-        $user = new User();
+//     public function testInstanceTableNameIspluralised()
+//     {
+//         $user = new User();
 
-        $this->assertEquals('users', $user::getTableName());
-    }
+//         $this->assertEquals('users', $user::getTableName());
+//     }
 
     /**
      * Test getProperties method
      */
-    public function testInstanceproperties()
-    {
-        $fields = [
-            "first_name" => "Taylor",
-            "last_name" => "Otwell",
-            "email" => "taylor.otwell@laravel.com",
-        ];
+//     public function testInstanceproperties()
+//     {
+//         $fields = [
+//             "first_name" => "Taylor",
+//             "last_name" => "Otwell",
+//             "email" => "taylor.otwell@laravel.com",
+//         ];
 
-        $user = new User();
+//         $user = new User();
 
-        $user->first_name = "Taylor";
-        $user->last_name = "Otwell";
-        $user->email = "taylor.otwell@laravel.com";
+//         $user->first_name = "Taylor";
+//         $user->last_name = "Otwell";
+//         $user->email = "taylor.otwell@laravel.com";
 
-        $this->assertEquals($fields, $user->getProperties());
-    }
+//         $this->assertEquals($fields, $user->getProperties());
+//     }
 
     /**
      * Test create method
